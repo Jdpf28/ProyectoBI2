@@ -1,8 +1,8 @@
 {
 	"jobConfig": {
-		"name": "ETL_Vacunacion_Pentavalente",
+		"name": "EtlProyecto2",
 		"description": "",
-		"role": "arn:aws:iam::381491935663:role/LabRole",
+		"role": "arn:aws:iam::730335326856:role/LabRole",
 		"command": "glueetl",
 		"version": "4.0",
 		"runtime": null,
@@ -15,26 +15,31 @@
 		"maxConcurrentRuns": 1,
 		"security": "none",
 		"scriptName": "ETL_Vacunacion_Pentavalente.py",
-		"scriptLocation": "s3://aws-glue-assets-381491935663-us-east-1/scripts/",
+		"scriptLocation": "s3://aws-glue-assets-730335326856-us-east-1/scripts/",
 		"language": "python-3",
-		"spark": true,
+		"spark": false,
 		"sparkConfiguration": "standard",
 		"jobParameters": [],
 		"tags": [],
 		"jobMode": "VISUAL_MODE",
-		"createdOn": "2025-05-05T17:24:29.127Z",
+		"createdOn": "2025-05-13T18:40:54.806Z",
 		"developerMode": false,
-		"connectionsList": [],
-		"temporaryDirectory": "s3://aws-glue-assets-381491935663-us-east-1/temporary/",
+		"connectionsList": [
+			"Redshift connection"
+		],
+		"temporaryDirectory": "s3://aws-glue-assets-730335326856-us-east-1/temporary/",
 		"glueHiveMetastore": true,
 		"etlAutoTuning": true,
 		"metrics": true,
 		"observabilityMetrics": true,
 		"bookmark": "job-bookmark-disable",
-		"sparkPath": "s3://aws-glue-assets-381491935663-us-east-1/sparkHistoryLogs/",
+		"sparkPath": "s3://aws-glue-assets-730335326856-us-east-1/sparkHistoryLogs/",
 		"flexExecution": false,
 		"minFlexWorkers": null,
-		"maintenanceWindow": null
+		"maintenanceWindow": null,
+		"pythonPath": "",
+		"dependentPath": "",
+		"additionalPythonModules": ""
 	},
 	"dag": {
 		"node-1746507209272": {
@@ -50,11 +55,11 @@
 			"type": "ApplyMapping",
 			"mapping": [
 				{
-					"toKey": "CodigoDepartamento",
+					"toKey": "codigo",
 					"fromPath": [
-						"código"
+						"codigo"
 					],
-					"toType": "int",
+					"toType": "float",
 					"fromType": "string",
 					"dropped": false,
 					"children": null
@@ -74,7 +79,7 @@
 					"fromPath": [
 						"población menor 1 año (meta programática)"
 					],
-					"toType": "float",
+					"toType": "string",
 					"fromType": "string",
 					"dropped": false,
 					"children": null
@@ -86,47 +91,17 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
-					"toKey": "%",
+					"toKey": "hb recien nacido (hasta 29 días) d. unica",
 					"fromPath": [
-						"%"
+						"hb recien nacido (hasta 29 días) d. unica"
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "hepatitis b recien nacido (hasta 29 días) recien nacido (primeras 12 horas) d. unica",
-					"fromPath": [
-						"hepatitis b recien nacido (hasta 29 días) recien nacido (primeras 12 horas) d. unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "hepatitis b recien nacido (hasta 29 días) recien nacido (despues de las primeras 12 horas) d. unica",
-					"fromPath": [
-						"hepatitis b recien nacido (hasta 29 días) recien nacido (despues de las primeras 12 horas) d. unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "hb recien nacido (hasta 29 días) (primeras 12 horas)+ despues de las primeras 12 horas d. unica",
-					"fromPath": [
-						"hb recien nacido (hasta 29 días) (primeras 12 horas)+ despues de las primeras 12 horas d. unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -136,7 +111,7 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -146,7 +121,7 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -154,7 +129,7 @@
 					"fromPath": [
 						"penta menor de un año 1ras. dosis"
 					],
-					"toType": "float",
+					"toType": "string",
 					"fromType": "string",
 					"dropped": false,
 					"children": null
@@ -164,17 +139,17 @@
 					"fromPath": [
 						"penta menor de un año 2das. dosis"
 					],
-					"toType": "float",
+					"toType": "string",
 					"fromType": "string",
 					"dropped": false,
 					"children": null
 				},
 				{
-					"toKey": "PentaTercerasDosis",
+					"toKey": "penta menor de un año 3ras dosis",
 					"fromPath": [
-						"penta menor de un año 3ras. dosis"
+						"penta menor de un año 3ras dosis"
 					],
-					"toType": "float",
+					"toType": "string",
 					"fromType": "string",
 					"dropped": false,
 					"children": null
@@ -186,7 +161,7 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -196,7 +171,7 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -206,7 +181,7 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -216,7 +191,7 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -226,7 +201,7 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -236,17 +211,17 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
-					"toKey": "población de 1 año (meta programática)",
+					"toKey": "poblacion_1_ano_meta_programatica",
 					"fromPath": [
 						"población de 1 año (meta programática)"
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -256,7 +231,7 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -266,17 +241,7 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "ha 1 año u. dósis",
-					"fromPath": [
-						"ha 1 año u. dósis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -286,7 +251,7 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -296,7 +261,7 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -306,7 +271,7 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -316,7 +281,7 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -326,7 +291,17 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "ha 1 año u. dósis",
+					"fromPath": [
+						"ha 1 año u. dósis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -336,7 +311,7 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -346,17 +321,17 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
-					"toKey": "población 5 años meta programática)",
+					"toKey": "poblacion_5_anos_meta_programatica",
 					"fromPath": [
-						"población 5 años meta programática)"
+						"población 5 años (meta programática)"
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -366,7 +341,7 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -376,67 +351,17 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
-					"toKey": "srp (t.v.) 5 años dosis ref.",
+					"toKey": "srp (t.v.) 5 años ref.",
 					"fromPath": [
-						"srp (t.v.) 5 años dosis ref."
+						"srp (t.v.) 5 años ref."
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "varicela de 5 años u. dósis",
-					"fromPath": [
-						"varicela de 5 años u. dósis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "flu de 18 a 40 años unica unica",
-					"fromPath": [
-						"flu de 18 a 40 años unica unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "flu de 41 a 59 años unica unica",
-					"fromPath": [
-						"flu de 41 a 59 años unica unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "población > de 60 años (dane) 30%",
-					"fromPath": [
-						"población > de 60 años (dane) 30%"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "flu de 60 años y mas unica",
-					"fromPath": [
-						"flu de 60 años y mas unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -446,67 +371,17 @@
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
-					"toKey": "tdap acelular gestantes de 10 años y mas u. d. c/ embarazo",
+					"toKey": "tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo",
 					"fromPath": [
-						"tdap acelular gestantes de 10 años y mas u. d. c/ embarazo"
+						"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
 					],
 					"toType": "string",
 					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "vph niñas de 9 años pob. vph niñas de 9 años",
-					"fromPath": [
-						"vph niñas de 9 años pob. vph niñas de 9 años"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "vph 1a dosis",
-					"fromPath": [
-						"vph 1a dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "% 1a dosis",
-					"fromPath": [
-						"% 1a dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "vph 2a dosis",
-					"fromPath": [
-						"vph 2a dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "% 2da dosis",
-					"fromPath": [
-						"% 2da dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
+					"dropped": false,
 					"children": null
 				},
 				{
@@ -521,6 +396,357 @@
 				}
 			],
 			"parentsValid": true,
+			"calculatedType": "",
+			"codeGenVersion": 2
+		},
+		"node-1746503384481": {
+			"nodeId": "node-1746503384481",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [],
+			"name": "Fuente_Vacunacion_2018",
+			"generatedNodeName": "Fuente_Vacunacion_2018_node1746503384481",
+			"classification": "DataSource",
+			"type": "S3",
+			"isCatalog": false,
+			"format": "csv",
+			"paths": [
+				"s3://uniandes-bi-proycto-2-202510-source/CoberturasVacunas_2018v3.csv"
+			],
+			"compressionType": null,
+			"exclusions": [],
+			"groupFiles": null,
+			"groupSize": null,
+			"recurse": true,
+			"maxBand": null,
+			"maxFilesInBand": null,
+			"additionalOptions": {
+				"boundedSize": null,
+				"boundedFiles": null,
+				"enableSamplePath": false,
+				"samplePath": "s3://uniandes-bi-proycto-2-202510-source/CoberturasVacunas_2018v3.csv",
+				"boundedOption": null
+			},
+			"separator": ",",
+			"escaper": "",
+			"quoteChar": "\"",
+			"multiline": null,
+			"withHeader": true,
+			"writeHeader": null,
+			"skipFirst": null,
+			"outputSchemas": [
+				[
+					{
+						"key": "codigo",
+						"fullPath": [
+							"codigo"
+						],
+						"type": "string"
+					},
+					{
+						"key": "departamentos",
+						"fullPath": [
+							"departamentos"
+						],
+						"type": "string"
+					},
+					{
+						"key": "población menor 1 año (meta programática)",
+						"fullPath": [
+							"población menor 1 año (meta programática)"
+						],
+						"type": "string"
+					},
+					{
+						"key": "bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica",
+						"fullPath": [
+							"bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "hb recien nacido (hasta 29 días) d. unica",
+						"fullPath": [
+							"hb recien nacido (hasta 29 días) d. unica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis",
+						"fullPath": [
+							"antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "vop <de1 año + vip <1año 3as 3.dosis",
+						"fullPath": [
+							"vop <de1 año + vip <1año 3as 3.dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "penta menor de un año 1ras. dosis",
+						"fullPath": [
+							"penta menor de un año 1ras. dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "penta menor de un año 2das. dosis",
+						"fullPath": [
+							"penta menor de un año 2das. dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "penta menor de un año 3ras dosis",
+						"fullPath": [
+							"penta menor de un año 3ras dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "rotavirus de 2 a 3 meses y 21 dias 1ra dosis",
+						"fullPath": [
+							"rotavirus de 2 a 3 meses y 21 dias 1ra dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "rotavirus de 4 a 11 meses y 29 dias 2da dosis",
+						"fullPath": [
+							"rotavirus de 4 a 11 meses y 29 dias 2da dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "flu de 6 meses a 11 meses 1ra dosis",
+						"fullPath": [
+							"flu de 6 meses a 11 meses 1ra dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "flu de 6 meses a 11 meses 2da dosis",
+						"fullPath": [
+							"flu de 6 meses a 11 meses 2da dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo (2 a 11 meses 29 dias) 1ra dosis",
+						"fullPath": [
+							"neumo (2 a 11 meses 29 dias) 1ra dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo (2 a 11 meses 29 dias) 2da dosis",
+						"fullPath": [
+							"neumo (2 a 11 meses 29 dias) 2da dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "población de 1 año (meta programática)",
+						"fullPath": [
+							"población de 1 año (meta programática)"
+						],
+						"type": "string"
+					},
+					{
+						"key": "srp (t.v.) de un año u.dósis",
+						"fullPath": [
+							"srp (t.v.) de un año u.dósis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "varicela de 1 año 1a u.dósis",
+						"fullPath": [
+							"varicela de 1 año 1a u.dósis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "f.a. 1 año u.dósis",
+						"fullPath": [
+							"f.a. 1 año u.dósis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo de (12 meses a 23 meses) ref.",
+						"fullPath": [
+							"neumo de (12 meses a 23 meses) ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo de (12-23 meses) 1ra dosis",
+						"fullPath": [
+							"neumo de (12-23 meses) 1ra dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo de (12-23 meses) 2da dosis",
+						"fullPath": [
+							"neumo de (12-23 meses) 2da dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo de (24- 35 meses) dosis unica",
+						"fullPath": [
+							"neumo de (24- 35 meses) dosis unica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "ha 1 año u. dósis",
+						"fullPath": [
+							"ha 1 año u. dósis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "vop al año de la 3ra dosis 1er. ref.",
+						"fullPath": [
+							"vop al año de la 3ra dosis 1er. ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "dpt al año de la 3ra dosis 1er. ref.",
+						"fullPath": [
+							"dpt al año de la 3ra dosis 1er. ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "población 5 años (meta programática)",
+						"fullPath": [
+							"población 5 años (meta programática)"
+						],
+						"type": "string"
+					},
+					{
+						"key": "vop 5 años 2do. ref.",
+						"fullPath": [
+							"vop 5 años 2do. ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "dpt 5 años 2do. ref.",
+						"fullPath": [
+							"dpt 5 años 2do. ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "srp (t.v.) 5 años ref.",
+						"fullPath": [
+							"srp (t.v.) 5 años ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "flu gestantes a partir de la semana 14 unica",
+						"fullPath": [
+							"flu gestantes a partir de la semana 14 unica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo",
+						"fullPath": [
+							"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
+						],
+						"type": "string"
+					},
+					{
+						"key": "region",
+						"fullPath": [
+							"region"
+						],
+						"type": "string"
+					}
+				]
+			],
+			"calculatedType": "",
+			"codeGenVersion": 2
+		},
+		"node-1747378500832": {
+			"nodeId": "node-1747378500832",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1747378584032"
+			],
+			"name": "DimPoblacion",
+			"generatedNodeName": "DimPoblacion_node1747378500832",
+			"classification": "DataSink",
+			"type": "AmazonRedshift",
+			"streamingBatchInterval": 100,
+			"data": {
+				"accessType": "connection",
+				"sourceType": "table",
+				"connection": {
+					"value": "Redshift connection",
+					"label": "Redshift connection",
+					"description": "No description available. Version: 2"
+				},
+				"schema": {
+					"value": "public",
+					"label": "public",
+					"description": null
+				},
+				"catalogDatabase": null,
+				"catalogRedshiftTable": null,
+				"catalogRedshiftSchema": null,
+				"table": {
+					"value": "dimpoblacion",
+					"label": "dimpoblacion",
+					"description": null
+				},
+				"catalogTable": null,
+				"tempDir": "s3://aws-glue-assets-730335326856-us-east-1/temporary/",
+				"iamRole": null,
+				"sampleQuery": null,
+				"preAction": null,
+				"postAction": null,
+				"action": "append",
+				"tableSchema": [
+					{
+						"value": "poblacion_1_ano_meta_programatica",
+						"label": "poblacion_1_ano_meta_programatica",
+						"description": "VARCHAR"
+					},
+					{
+						"value": "poblacion_5_anos_meta_programatica",
+						"label": "poblacion_5_anos_meta_programatica",
+						"description": "VARCHAR"
+					},
+					{
+						"value": "PoblacionMenor1",
+						"label": "PoblacionMenor1",
+						"description": "VARCHAR"
+					}
+				],
+				"selectedColumns": [],
+				"crawlerConnection": null,
+				"tablePrefix": null,
+				"upsert": false,
+				"mergeAction": "simple",
+				"mergeWhenMatched": "update",
+				"mergeWhenNotMatched": "insert",
+				"mergeClause": null,
+				"stagingTable": "public.dimpoblacion_temp_r8g4al",
+				"advancedOptions": []
+			},
 			"calculatedType": "",
 			"codeGenVersion": 2
 		},
@@ -545,1606 +771,6 @@
 			"unionType": "ALL",
 			"codeGenVersion": 2
 		},
-		"node-1746510221751": {
-			"nodeId": "node-1746510221751",
-			"dataPreview": false,
-			"previewAmount": 0,
-			"inputs": [
-				"node-1746508151814"
-			],
-			"name": "SelectFields_DimPoblacion",
-			"generatedNodeName": "SelectFields_DimPoblacion_node1746510221751",
-			"classification": "Transform",
-			"type": "SelectFields",
-			"paths": [
-				"PoblacionMenor1"
-			],
-			"parentsValid": true,
-			"calculatedType": "",
-			"codeGenVersion": 2
-		},
-		"node-1746510780227": {
-			"nodeId": "node-1746510780227",
-			"dataPreview": false,
-			"previewAmount": 0,
-			"inputs": [
-				"node-1746510221751"
-			],
-			"name": "Target_DimPoblacion",
-			"generatedNodeName": "Target_DimPoblacion_node1746510780227",
-			"classification": "DataSink",
-			"type": "S3",
-			"streamingBatchInterval": 100,
-			"format": "glueparquet",
-			"compression": "snappy",
-			"numberTargetPartitions": "0",
-			"path": "s3://uniandes-bi-proyecto-2-202510-target/dimensional/DimPoblacion/",
-			"partitionKeys": [],
-			"schemaChangePolicy": {
-				"enableUpdateCatalog": true,
-				"updateBehavior": "UPDATE_IN_DATABASE",
-				"database": "vacunacion_datamart",
-				"table": "dim_poblacion"
-			},
-			"updateCatalogOptions": "schemaAndPartitions",
-			"autoDataQuality": {
-				"isEnabled": true,
-				"evaluationContext": "EvaluateDataQuality_node1746509687605"
-			},
-			"calculatedType": "",
-			"codeGenVersion": 2
-		},
-		"node-1746507364437": {
-			"nodeId": "node-1746507364437",
-			"dataPreview": false,
-			"previewAmount": 0,
-			"inputs": [
-				"node-1746503384481"
-			],
-			"name": "ApplyMapping_2018",
-			"generatedNodeName": "ApplyMapping_2018_node1746507364437",
-			"classification": "Transform",
-			"type": "ApplyMapping",
-			"mapping": [
-				{
-					"toKey": "CodigoDepartamento",
-					"fromPath": [
-						"código"
-					],
-					"toType": "float",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				},
-				{
-					"toKey": "NombreDepartamento",
-					"fromPath": [
-						"departamentos"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				},
-				{
-					"toKey": "PoblacionMenor1",
-					"fromPath": [
-						"población menor 1 año (meta programática)"
-					],
-					"toType": "float",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				},
-				{
-					"toKey": "bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica",
-					"fromPath": [
-						"bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "%",
-					"fromPath": [
-						"%"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "hepatitis b recien nacido (hasta 29 días) recien nacido (primeras 12 horas) d. unica",
-					"fromPath": [
-						"hepatitis b recien nacido (hasta 29 días) recien nacido (primeras 12 horas) d. unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "hepatitis b recien nacido (hasta 29 días) recien nacido (despues de las primeras 12 horas) d. unica",
-					"fromPath": [
-						"hepatitis b recien nacido (hasta 29 días) recien nacido (despues de las primeras 12 horas) d. unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "hb recien nacido (hasta 29 días) (primeras 12 horas)+ despues de las primeras 12 horas d. unica",
-					"fromPath": [
-						"hb recien nacido (hasta 29 días) (primeras 12 horas)+ despues de las primeras 12 horas d. unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis",
-					"fromPath": [
-						"antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "vop <de1 año + vip <1año 3as 3.dosis",
-					"fromPath": [
-						"vop <de1 año + vip <1año 3as 3.dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "PentaPrimerasDosis",
-					"fromPath": [
-						"penta menor de un año 1ras. dosis"
-					],
-					"toType": "float",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				},
-				{
-					"toKey": "PentaSegundasDosis",
-					"fromPath": [
-						"penta menor de un año 2das. dosis"
-					],
-					"toType": "float",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				},
-				{
-					"toKey": "PentaTercerasDosis",
-					"fromPath": [
-						"penta menor de un año 3ras .dosis"
-					],
-					"toType": "float",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				},
-				{
-					"toKey": "rotavirus de 2 a 3 meses y 21 dias 1ra dosis",
-					"fromPath": [
-						"rotavirus de 2 a 3 meses y 21 dias 1ra dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "rotavirus de 4 a 11 meses y 29 dias 2da dosis",
-					"fromPath": [
-						"rotavirus de 4 a 11 meses y 29 dias 2da dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "flu de 6 meses a 11 meses 1ra dosis",
-					"fromPath": [
-						"flu de 6 meses a 11 meses 1ra dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "flu de 6 meses a 11 meses 2da dosis",
-					"fromPath": [
-						"flu de 6 meses a 11 meses 2da dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "neumo (2 a 11 meses 29 dias) 1ra dosis",
-					"fromPath": [
-						"neumo (2 a 11 meses 29 dias) 1ra dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "neumo (2 a 11 meses 29 dias) 2da dosis",
-					"fromPath": [
-						"neumo (2 a 11 meses 29 dias) 2da dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "población de 1 año (meta programática )",
-					"fromPath": [
-						"población de 1 año (meta programática )"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "srp (t.v.) de un año u.dósis",
-					"fromPath": [
-						"srp (t.v.) de un año u.dósis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "varicela de 1 año 1a u.dósis",
-					"fromPath": [
-						"varicela de 1 año 1a u.dósis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "f.a. 1 año u.dósis",
-					"fromPath": [
-						"f.a. 1 año u.dósis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "neumo de (12 meses a 23 meses) ref.",
-					"fromPath": [
-						"neumo de (12 meses a 23 meses) ref."
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "neumo de (12-23 meses) 1ra dosis",
-					"fromPath": [
-						"neumo de (12-23 meses) 1ra dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "neumo de (12-23 meses) 2da dosis",
-					"fromPath": [
-						"neumo de (12-23 meses) 2da dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "neumo de (24- 35 meses) dosis unica",
-					"fromPath": [
-						"neumo de (24- 35 meses) dosis unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "ha 1 año u. dósis",
-					"fromPath": [
-						"ha 1 año u. dósis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "vop al año de la 3ra dosis 1er. ref.",
-					"fromPath": [
-						"vop al año de la 3ra dosis 1er. ref."
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "dpt al año de la 3ra dosis 1er. ref.",
-					"fromPath": [
-						"dpt al año de la 3ra dosis 1er. ref."
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "población 5 años (meta programática)",
-					"fromPath": [
-						"población 5 años (meta programática)"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "vop 5 años 2do. ref.",
-					"fromPath": [
-						"vop 5 años 2do. ref."
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "dpt 5 años 2do. ref.",
-					"fromPath": [
-						"dpt 5 años 2do. ref."
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "srp (t.v.) 5 años ref.",
-					"fromPath": [
-						"srp (t.v.) 5 años ref."
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "flu de 19 a 49 años única unica",
-					"fromPath": [
-						"flu de 19 a 49 años única unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "flu de 50 años y más unica",
-					"fromPath": [
-						"flu de 50 años y más unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "gestantes a partir de la semana 14 unica",
-					"fromPath": [
-						"gestantes a partir de la semana 14 unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo",
-					"fromPath": [
-						"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "vph pob. vph niñas de 9 años",
-					"fromPath": [
-						"vph pob. vph niñas de 9 años"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "1a",
-					"fromPath": [
-						"1a"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "2a",
-					"fromPath": [
-						"2a"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "Region",
-					"fromPath": [
-						"region"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				}
-			],
-			"parentsValid": true,
-			"calculatedType": "",
-			"codeGenVersion": 2
-		},
-		"node-1746509930356": {
-			"nodeId": "node-1746509930356",
-			"dataPreview": false,
-			"previewAmount": 0,
-			"inputs": [
-				"node-1746509876227"
-			],
-			"name": "Drop Duplicates",
-			"generatedNodeName": "DropDuplicates_node1746509930356",
-			"classification": "Transform",
-			"type": "DropDuplicates",
-			"parentsValid": true,
-			"calculatedType": "",
-			"columns": [],
-			"codeGenVersion": 2
-		},
-		"node-1746508151814": {
-			"nodeId": "node-1746508151814",
-			"dataPreview": false,
-			"previewAmount": 0,
-			"inputs": [
-				"node-1746508098975",
-				"node-1746508125898"
-			],
-			"name": "Union",
-			"generatedNodeName": "Union_node1746508151814",
-			"classification": "Transform",
-			"type": "Union",
-			"parentsValid": true,
-			"calculatedType": "",
-			"sources": [
-				"node-1746508098975",
-				"node-1746508125898"
-			],
-			"unionType": "ALL",
-			"codeGenVersion": 2
-		},
-		"node-1746507971926": {
-			"nodeId": "node-1746507971926",
-			"dataPreview": false,
-			"previewAmount": 0,
-			"inputs": [
-				"node-1746507364437"
-			],
-			"name": "SQL Query",
-			"generatedNodeName": "SQLQuery_node1746507971926",
-			"classification": "Transform",
-			"type": "SqlCode",
-			"sqlAliases": [
-				{
-					"from": "node-1746507364437",
-					"alias": "myDataSource"
-				}
-			],
-			"outputSchemas": [
-				[
-					{
-						"key": "CodigoDepartamento",
-						"fullPath": [
-							"CodigoDepartamento"
-						],
-						"type": "float",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "NombreDepartamento",
-						"fullPath": [
-							"NombreDepartamento"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "PoblacionMenor1",
-						"fullPath": [
-							"PoblacionMenor1"
-						],
-						"type": "float",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "PentaPrimerasDosis",
-						"fullPath": [
-							"PentaPrimerasDosis"
-						],
-						"type": "float",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "PentaSegundasDosis",
-						"fullPath": [
-							"PentaSegundasDosis"
-						],
-						"type": "float",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "PentaTercerasDosis",
-						"fullPath": [
-							"PentaTercerasDosis"
-						],
-						"type": "float",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "Anio",
-						"fullPath": [
-							"Anio"
-						],
-						"type": "int",
-						"glueStudioType": null,
-						"children": null
-					}
-				]
-			],
-			"parentsValid": true,
-			"calculatedType": "",
-			"sqlQuery": "SELECT \r\n  *, \r\n  2018 AS Anio \r\nFROM myDataSource",
-			"codeGenVersion": 2
-		},
-		"node-1746506536033": {
-			"nodeId": "node-1746506536033",
-			"dataPreview": false,
-			"previewAmount": 0,
-			"inputs": [
-				"node-1746503205934"
-			],
-			"name": "ApplyMapping_2016",
-			"generatedNodeName": "ApplyMapping_2016_node1746506536033",
-			"classification": "Transform",
-			"type": "ApplyMapping",
-			"mapping": [
-				{
-					"toKey": "CodigoDepartamento",
-					"fromPath": [
-						"código"
-					],
-					"toType": "float",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				},
-				{
-					"toKey": "NombreDepartamento",
-					"fromPath": [
-						"departamentos"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				},
-				{
-					"toKey": "PoblacionMenor1",
-					"fromPath": [
-						"población menor 1 año (meta programática)"
-					],
-					"toType": "float",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				},
-				{
-					"toKey": "bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica",
-					"fromPath": [
-						"bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "%",
-					"fromPath": [
-						"%"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "hb recien nacido (hasta 29 días) d. unica",
-					"fromPath": [
-						"hb recien nacido (hasta 29 días) d. unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "antipolio inactivada (vip) parenteral<  de 1 año 1ras. dosis",
-					"fromPath": [
-						"antipolio inactivada (vip) parenteral<  de 1 año 1ras. dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "vop <de1 año + vip <1año 3as 3.dosis",
-					"fromPath": [
-						"vop <de1 año + vip <1año 3as 3.dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "PentaPrimerasDosis",
-					"fromPath": [
-						"penta menor de un año 1ras. dosis"
-					],
-					"toType": "float",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				},
-				{
-					"toKey": "PentaSegundasDosis",
-					"fromPath": [
-						"penta menor de un año 2das. dosis"
-					],
-					"toType": "float",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				},
-				{
-					"toKey": "PentaTercerasDosis",
-					"fromPath": [
-						"penta menor de un año 3ras .dosis"
-					],
-					"toType": "float",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				},
-				{
-					"toKey": "rotavirus de 2 a 3 meses y 21 dias 1ra dosis",
-					"fromPath": [
-						"rotavirus de 2 a 3 meses y 21 dias 1ra dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "rotavirus de 4 a 11 meses y 29 dias 2da dosis",
-					"fromPath": [
-						"rotavirus de 4 a 11 meses y 29 dias 2da dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "flu de 6 meses a 11 meses 1ra dosis",
-					"fromPath": [
-						"flu de 6 meses a 11 meses 1ra dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "flu de 6 meses a 11 meses 2da dosis",
-					"fromPath": [
-						"flu de 6 meses a 11 meses 2da dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "neumo (2 a 11 meses 29 dias) 1ra dosis",
-					"fromPath": [
-						"neumo (2 a 11 meses 29 dias) 1ra dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "neumo (2 a 11 meses 29 dias) 2da dosis",
-					"fromPath": [
-						"neumo (2 a 11 meses 29 dias) 2da dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "población de 1 año (meta programática )",
-					"fromPath": [
-						"población de 1 año (meta programática )"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "srp (t.v.) de un año u.dósis",
-					"fromPath": [
-						"srp (t.v.) de un año u.dósis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "varicela de 1 año 1a u.dósis",
-					"fromPath": [
-						"varicela de 1 año 1a u.dósis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "f.a. 1 año u.dósis",
-					"fromPath": [
-						"f.a. 1 año u.dósis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "neumo de (12 meses a 23 meses) ref.",
-					"fromPath": [
-						"neumo de (12 meses a 23 meses) ref."
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "neumo de (12-23 meses) 1ra dosis",
-					"fromPath": [
-						"neumo de (12-23 meses) 1ra dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "neumo de (12-23 meses) 2da dosis",
-					"fromPath": [
-						"neumo de (12-23 meses) 2da dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "neumo de (24- 35 meses) dosis unica",
-					"fromPath": [
-						"neumo de (24- 35 meses) dosis unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "ha 1 año u. dósis",
-					"fromPath": [
-						"ha 1 año u. dósis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "vop al año de la 3ra dosis 1er. ref.",
-					"fromPath": [
-						"vop al año de la 3ra dosis 1er. ref."
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "dpt al año de la 3ra dosis 1er. ref.",
-					"fromPath": [
-						"dpt al año de la 3ra dosis 1er. ref."
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "población 5 años (meta programática)",
-					"fromPath": [
-						"población 5 años (meta programática)"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "vop 5 años 2do. ref.",
-					"fromPath": [
-						"vop 5 años 2do. ref."
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "dpt 5 años 2do. ref.",
-					"fromPath": [
-						"dpt 5 años 2do. ref."
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "srp (t.v.) 5 años ref.",
-					"fromPath": [
-						"srp (t.v.) 5 años ref."
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "flu de 19 a 49 años única unica",
-					"fromPath": [
-						"flu de 19 a 49 años única unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "flu de 50 años y más unica",
-					"fromPath": [
-						"flu de 50 años y más unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "gestantes a partir de la semana 14 unica",
-					"fromPath": [
-						"gestantes a partir de la semana 14 unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo",
-					"fromPath": [
-						"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "Region",
-					"fromPath": [
-						"region"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				},
-				{
-					"toKey": "total dosis",
-					"fromPath": [
-						"total dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				}
-			],
-			"parentsValid": true,
-			"calculatedType": "",
-			"codeGenVersion": 2
-		},
-		"node-1746508004674": {
-			"nodeId": "node-1746508004674",
-			"dataPreview": false,
-			"previewAmount": 0,
-			"inputs": [
-				"node-1746507209272"
-			],
-			"name": "SQL Query",
-			"generatedNodeName": "SQLQuery_node1746508004674",
-			"classification": "Transform",
-			"type": "SqlCode",
-			"sqlAliases": [
-				{
-					"from": "node-1746507209272",
-					"alias": "myDataSource"
-				}
-			],
-			"outputSchemas": [
-				[
-					{
-						"key": "CodigoDepartamento",
-						"fullPath": [
-							"CodigoDepartamento"
-						],
-						"type": "int",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "NombreDepartamento",
-						"fullPath": [
-							"NombreDepartamento"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "PoblacionMenor1",
-						"fullPath": [
-							"PoblacionMenor1"
-						],
-						"type": "float",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "PentaPrimerasDosis",
-						"fullPath": [
-							"PentaPrimerasDosis"
-						],
-						"type": "float",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "PentaSegundasDosis",
-						"fullPath": [
-							"PentaSegundasDosis"
-						],
-						"type": "float",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "PentaTercerasDosis",
-						"fullPath": [
-							"PentaTercerasDosis"
-						],
-						"type": "float",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "Anio",
-						"fullPath": [
-							"Anio"
-						],
-						"type": "int",
-						"glueStudioType": null,
-						"children": null
-					}
-				]
-			],
-			"parentsValid": true,
-			"calculatedType": "",
-			"sqlQuery": "SELECT \r\n  *, \r\n  2019 AS Anio \r\nFROM myDataSource",
-			"codeGenVersion": 2
-		},
-		"node-1746509712134": {
-			"nodeId": "node-1746509712134",
-			"dataPreview": false,
-			"previewAmount": 0,
-			"inputs": [
-				"node-1746508151814"
-			],
-			"name": "SelectFields_DimDepartamento",
-			"generatedNodeName": "SelectFields_DimDepartamento_node1746509712134",
-			"classification": "Transform",
-			"type": "SelectFields",
-			"paths": [
-				"CodigoDepartamento",
-				"NombreDepartamento"
-			],
-			"parentsValid": true,
-			"calculatedType": "",
-			"codeGenVersion": 2
-		},
-		"node-1746509936036": {
-			"nodeId": "node-1746509936036",
-			"dataPreview": false,
-			"previewAmount": 0,
-			"inputs": [
-				"node-1746509930356"
-			],
-			"name": "Target_DimFecha",
-			"generatedNodeName": "Target_DimFecha_node1746509936036",
-			"classification": "DataSink",
-			"type": "S3",
-			"streamingBatchInterval": 100,
-			"format": "glueparquet",
-			"compression": "snappy",
-			"numberTargetPartitions": "0",
-			"path": "s3://uniandes-bi-proyecto-2-202510-target/dimensional/DimFecha/",
-			"partitionKeys": [],
-			"schemaChangePolicy": {
-				"enableUpdateCatalog": true,
-				"updateBehavior": "UPDATE_IN_DATABASE",
-				"database": "vacunacion_datamart",
-				"table": "dim_fecha"
-			},
-			"updateCatalogOptions": "schemaAndPartitions",
-			"autoDataQuality": {
-				"isEnabled": true,
-				"evaluationContext": "EvaluateDataQuality_node1746509687605"
-			},
-			"calculatedType": "",
-			"codeGenVersion": 2
-		},
-		"node-1746512236865": {
-			"nodeId": "node-1746512236865",
-			"dataPreview": false,
-			"previewAmount": 0,
-			"inputs": [
-				"node-1746512182699"
-			],
-			"name": "Target_DimVacuna",
-			"generatedNodeName": "Target_DimVacuna_node1746512236865",
-			"classification": "DataSink",
-			"type": "S3",
-			"streamingBatchInterval": 100,
-			"format": "glueparquet",
-			"compression": "snappy",
-			"numberTargetPartitions": "0",
-			"path": "s3://uniandes-bi-proyecto-2-202510-target/dimensional/DimVacuna/",
-			"partitionKeys": [],
-			"schemaChangePolicy": {
-				"enableUpdateCatalog": true,
-				"updateBehavior": "UPDATE_IN_DATABASE",
-				"database": "vacunacion_datamart",
-				"table": "dim_vacuna"
-			},
-			"updateCatalogOptions": "schemaAndPartitions",
-			"autoDataQuality": {
-				"isEnabled": true,
-				"evaluationContext": "EvaluateDataQuality_node1746511162130"
-			},
-			"calculatedType": "",
-			"codeGenVersion": 2
-		},
-		"node-1746503384481": {
-			"nodeId": "node-1746503384481",
-			"dataPreview": false,
-			"previewAmount": 0,
-			"inputs": [],
-			"name": "Fuente_Vacunacion_2018",
-			"generatedNodeName": "Fuente_Vacunacion_2018_node1746503384481",
-			"classification": "DataSource",
-			"type": "S3",
-			"isCatalog": false,
-			"format": "csv",
-			"paths": [
-				"s3://uniandes-bi-proyecto-2-202510-source/CoberturasVacunas_2018.csv"
-			],
-			"compressionType": null,
-			"exclusions": [],
-			"groupFiles": null,
-			"groupSize": null,
-			"recurse": true,
-			"maxBand": null,
-			"maxFilesInBand": null,
-			"additionalOptions": {
-				"boundedSize": null,
-				"boundedFiles": null,
-				"enableSamplePath": false,
-				"samplePath": "s3://uniandes-bi-proyecto-2-202510-source/CoberturasVacunas_2018.csv",
-				"boundedOption": null
-			},
-			"separator": ",",
-			"escaper": "",
-			"quoteChar": "\"",
-			"multiline": null,
-			"withHeader": true,
-			"writeHeader": null,
-			"skipFirst": null,
-			"optimizePerformance": false,
-			"outputSchemas": [
-				[
-					{
-						"key": "código",
-						"fullPath": [
-							"código"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "departamentos",
-						"fullPath": [
-							"departamentos"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "población menor 1 año (meta programática)",
-						"fullPath": [
-							"población menor 1 año (meta programática)"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica",
-						"fullPath": [
-							"bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "%",
-						"fullPath": [
-							"%"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "hepatitis b recien nacido (hasta 29 días) recien nacido (primeras 12 horas) d. unica",
-						"fullPath": [
-							"hepatitis b recien nacido (hasta 29 días) recien nacido (primeras 12 horas) d. unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "hepatitis b recien nacido (hasta 29 días) recien nacido (despues de las primeras 12 horas) d. unica",
-						"fullPath": [
-							"hepatitis b recien nacido (hasta 29 días) recien nacido (despues de las primeras 12 horas) d. unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "hb recien nacido (hasta 29 días) (primeras 12 horas)+ despues de las primeras 12 horas d. unica",
-						"fullPath": [
-							"hb recien nacido (hasta 29 días) (primeras 12 horas)+ despues de las primeras 12 horas d. unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis",
-						"fullPath": [
-							"antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "vop <de1 año + vip <1año 3as 3.dosis",
-						"fullPath": [
-							"vop <de1 año + vip <1año 3as 3.dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "penta menor de un año 1ras. dosis",
-						"fullPath": [
-							"penta menor de un año 1ras. dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "penta menor de un año 2das. dosis",
-						"fullPath": [
-							"penta menor de un año 2das. dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "penta menor de un año 3ras .dosis",
-						"fullPath": [
-							"penta menor de un año 3ras .dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "rotavirus de 2 a 3 meses y 21 dias 1ra dosis",
-						"fullPath": [
-							"rotavirus de 2 a 3 meses y 21 dias 1ra dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "rotavirus de 4 a 11 meses y 29 dias 2da dosis",
-						"fullPath": [
-							"rotavirus de 4 a 11 meses y 29 dias 2da dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "flu de 6 meses a 11 meses 1ra dosis",
-						"fullPath": [
-							"flu de 6 meses a 11 meses 1ra dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "flu de 6 meses a 11 meses 2da dosis",
-						"fullPath": [
-							"flu de 6 meses a 11 meses 2da dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "neumo (2 a 11 meses 29 dias) 1ra dosis",
-						"fullPath": [
-							"neumo (2 a 11 meses 29 dias) 1ra dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "neumo (2 a 11 meses 29 dias) 2da dosis",
-						"fullPath": [
-							"neumo (2 a 11 meses 29 dias) 2da dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "población de 1 año (meta programática )",
-						"fullPath": [
-							"población de 1 año (meta programática )"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "srp (t.v.) de un año u.dósis",
-						"fullPath": [
-							"srp (t.v.) de un año u.dósis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "varicela de 1 año 1a u.dósis",
-						"fullPath": [
-							"varicela de 1 año 1a u.dósis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "f.a. 1 año u.dósis",
-						"fullPath": [
-							"f.a. 1 año u.dósis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "neumo de (12 meses a 23 meses) ref.",
-						"fullPath": [
-							"neumo de (12 meses a 23 meses) ref."
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "neumo de (12-23 meses) 1ra dosis",
-						"fullPath": [
-							"neumo de (12-23 meses) 1ra dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "neumo de (12-23 meses) 2da dosis",
-						"fullPath": [
-							"neumo de (12-23 meses) 2da dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "neumo de (24- 35 meses) dosis unica",
-						"fullPath": [
-							"neumo de (24- 35 meses) dosis unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "ha 1 año u. dósis",
-						"fullPath": [
-							"ha 1 año u. dósis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "vop al año de la 3ra dosis 1er. ref.",
-						"fullPath": [
-							"vop al año de la 3ra dosis 1er. ref."
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "dpt al año de la 3ra dosis 1er. ref.",
-						"fullPath": [
-							"dpt al año de la 3ra dosis 1er. ref."
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "población 5 años (meta programática)",
-						"fullPath": [
-							"población 5 años (meta programática)"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "vop 5 años 2do. ref.",
-						"fullPath": [
-							"vop 5 años 2do. ref."
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "dpt 5 años 2do. ref.",
-						"fullPath": [
-							"dpt 5 años 2do. ref."
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "srp (t.v.) 5 años ref.",
-						"fullPath": [
-							"srp (t.v.) 5 años ref."
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "flu de 19 a 49 años única unica",
-						"fullPath": [
-							"flu de 19 a 49 años única unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "flu de 50 años y más unica",
-						"fullPath": [
-							"flu de 50 años y más unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "gestantes a partir de la semana 14 unica",
-						"fullPath": [
-							"gestantes a partir de la semana 14 unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo",
-						"fullPath": [
-							"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "vph pob. vph niñas de 9 años",
-						"fullPath": [
-							"vph pob. vph niñas de 9 años"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "1a",
-						"fullPath": [
-							"1a"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "2a",
-						"fullPath": [
-							"2a"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "region",
-						"fullPath": [
-							"region"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					}
-				]
-			],
-			"calculatedType": "",
-			"codeGenVersion": 2
-		},
 		"node-1746503205934": {
 			"nodeId": "node-1746503205934",
 			"dataPreview": false,
@@ -2157,7 +783,7 @@
 			"isCatalog": false,
 			"format": "csv",
 			"paths": [
-				"s3://uniandes-bi-proyecto-2-202510-source/CoberturasVacunas_2016.csv"
+				"s3://uniandes-bi-proycto-2-202510-source/CoberturasVacunas_2016v3.csv"
 			],
 			"compressionType": null,
 			"exclusions": [],
@@ -2170,7 +796,7 @@
 				"boundedSize": null,
 				"boundedFiles": null,
 				"enableSamplePath": false,
-				"samplePath": "s3://uniandes-bi-proyecto-2-202510-source/CoberturasVacunas_2016.csv",
+				"samplePath": "s3://uniandes-bi-proycto-2-202510-source/CoberturasVacunas_2016v3.csv",
 				"boundedOption": null
 			},
 			"separator": ",",
@@ -2184,9 +810,9 @@
 			"outputSchemas": [
 				[
 					{
-						"key": "código",
+						"key": "codigo",
 						"fullPath": [
-							"código"
+							"codigo"
 						],
 						"type": "string",
 						"glueStudioType": null,
@@ -2214,15 +840,6 @@
 						"key": "bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica",
 						"fullPath": [
 							"bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "%",
-						"fullPath": [
-							"%"
 						],
 						"type": "string",
 						"glueStudioType": null,
@@ -2238,553 +855,9 @@
 						"children": null
 					},
 					{
-						"key": "antipolio inactivada (vip) parenteral<  de 1 año 1ras. dosis",
+						"key": "antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis",
 						"fullPath": [
-							"antipolio inactivada (vip) parenteral<  de 1 año 1ras. dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "vop <de1 año + vip <1año 3as 3.dosis",
-						"fullPath": [
-							"vop <de1 año + vip <1año 3as 3.dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "penta menor de un año 1ras. dosis",
-						"fullPath": [
-							"penta menor de un año 1ras. dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "penta menor de un año 2das. dosis",
-						"fullPath": [
-							"penta menor de un año 2das. dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "penta menor de un año 3ras .dosis",
-						"fullPath": [
-							"penta menor de un año 3ras .dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "rotavirus de 2 a 3 meses y 21 dias 1ra dosis",
-						"fullPath": [
-							"rotavirus de 2 a 3 meses y 21 dias 1ra dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "rotavirus de 4 a 11 meses y 29 dias 2da dosis",
-						"fullPath": [
-							"rotavirus de 4 a 11 meses y 29 dias 2da dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "flu de 6 meses a 11 meses 1ra dosis",
-						"fullPath": [
-							"flu de 6 meses a 11 meses 1ra dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "flu de 6 meses a 11 meses 2da dosis",
-						"fullPath": [
-							"flu de 6 meses a 11 meses 2da dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "neumo (2 a 11 meses 29 dias) 1ra dosis",
-						"fullPath": [
-							"neumo (2 a 11 meses 29 dias) 1ra dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "neumo (2 a 11 meses 29 dias) 2da dosis",
-						"fullPath": [
-							"neumo (2 a 11 meses 29 dias) 2da dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "población de 1 año (meta programática )",
-						"fullPath": [
-							"población de 1 año (meta programática )"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "srp (t.v.) de un año u.dósis",
-						"fullPath": [
-							"srp (t.v.) de un año u.dósis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "varicela de 1 año 1a u.dósis",
-						"fullPath": [
-							"varicela de 1 año 1a u.dósis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "f.a. 1 año u.dósis",
-						"fullPath": [
-							"f.a. 1 año u.dósis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "neumo de (12 meses a 23 meses) ref.",
-						"fullPath": [
-							"neumo de (12 meses a 23 meses) ref."
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "neumo de (12-23 meses) 1ra dosis",
-						"fullPath": [
-							"neumo de (12-23 meses) 1ra dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "neumo de (12-23 meses) 2da dosis",
-						"fullPath": [
-							"neumo de (12-23 meses) 2da dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "neumo de (24- 35 meses) dosis unica",
-						"fullPath": [
-							"neumo de (24- 35 meses) dosis unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "ha 1 año u. dósis",
-						"fullPath": [
-							"ha 1 año u. dósis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "vop al año de la 3ra dosis 1er. ref.",
-						"fullPath": [
-							"vop al año de la 3ra dosis 1er. ref."
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "dpt al año de la 3ra dosis 1er. ref.",
-						"fullPath": [
-							"dpt al año de la 3ra dosis 1er. ref."
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "población 5 años (meta programática)",
-						"fullPath": [
-							"población 5 años (meta programática)"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "vop 5 años 2do. ref.",
-						"fullPath": [
-							"vop 5 años 2do. ref."
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "dpt 5 años 2do. ref.",
-						"fullPath": [
-							"dpt 5 años 2do. ref."
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "srp (t.v.) 5 años ref.",
-						"fullPath": [
-							"srp (t.v.) 5 años ref."
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "flu de 19 a 49 años única unica",
-						"fullPath": [
-							"flu de 19 a 49 años única unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "flu de 50 años y más unica",
-						"fullPath": [
-							"flu de 50 años y más unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "gestantes a partir de la semana 14 unica",
-						"fullPath": [
-							"gestantes a partir de la semana 14 unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo",
-						"fullPath": [
-							"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "region",
-						"fullPath": [
-							"region"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "total dosis",
-						"fullPath": [
-							"total dosis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					}
-				]
-			],
-			"calculatedType": "",
-			"codeGenVersion": 2
-		},
-		"node-1746508039137": {
-			"nodeId": "node-1746508039137",
-			"dataPreview": false,
-			"previewAmount": 0,
-			"inputs": [
-				"node-1746506536033"
-			],
-			"name": "SQL Query",
-			"generatedNodeName": "SQLQuery_node1746508039137",
-			"classification": "Transform",
-			"type": "SqlCode",
-			"sqlAliases": [
-				{
-					"from": "node-1746506536033",
-					"alias": "myDataSource"
-				}
-			],
-			"outputSchemas": [
-				[
-					{
-						"key": "CodigoDepartamento",
-						"fullPath": [
-							"CodigoDepartamento"
-						],
-						"type": "float",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "NombreDepartamento",
-						"fullPath": [
-							"NombreDepartamento"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "PoblacionMenor1",
-						"fullPath": [
-							"PoblacionMenor1"
-						],
-						"type": "float",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "PentaPrimerasDosis",
-						"fullPath": [
-							"PentaPrimerasDosis"
-						],
-						"type": "float",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "PentaSegundasDosis",
-						"fullPath": [
-							"PentaSegundasDosis"
-						],
-						"type": "float",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "PentaTercerasDosis",
-						"fullPath": [
-							"PentaTercerasDosis"
-						],
-						"type": "float",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "Anio",
-						"fullPath": [
-							"Anio"
-						],
-						"type": "int",
-						"glueStudioType": null,
-						"children": null
-					}
-				]
-			],
-			"parentsValid": true,
-			"calculatedType": "",
-			"sqlQuery": "SELECT \r\n  *, \r\n  2016 AS Anio \r\nFROM myDataSource",
-			"codeGenVersion": 2
-		},
-		"node-1746509805846": {
-			"nodeId": "node-1746509805846",
-			"dataPreview": false,
-			"previewAmount": 0,
-			"inputs": [
-				"node-1746509793839"
-			],
-			"name": "Target_DimDepartamento",
-			"generatedNodeName": "Target_DimDepartamento_node1746509805846",
-			"classification": "DataSink",
-			"type": "S3",
-			"streamingBatchInterval": 100,
-			"format": "glueparquet",
-			"compression": "snappy",
-			"numberTargetPartitions": "0",
-			"path": "s3://uniandes-bi-proyecto-2-202510-target/dimensional/DimDepartamento/",
-			"partitionKeys": [],
-			"schemaChangePolicy": {
-				"enableUpdateCatalog": true,
-				"updateBehavior": "UPDATE_IN_DATABASE",
-				"database": "vacunacion_datamart",
-				"table": "dim_departamento"
-			},
-			"updateCatalogOptions": "schemaAndPartitions",
-			"autoDataQuality": {
-				"isEnabled": true,
-				"evaluationContext": "EvaluateDataQuality_node1746509687605"
-			},
-			"calculatedType": "",
-			"codeGenVersion": 2
-		},
-		"node-1746508125898": {
-			"nodeId": "node-1746508125898",
-			"dataPreview": false,
-			"previewAmount": 0,
-			"inputs": [
-				"node-1746508039137",
-				"node-1746508057611"
-			],
-			"name": "Union",
-			"generatedNodeName": "Union_node1746508125898",
-			"classification": "Transform",
-			"type": "Union",
-			"parentsValid": true,
-			"calculatedType": "",
-			"sources": [
-				"node-1746508039137",
-				"node-1746508057611"
-			],
-			"unionType": "ALL",
-			"codeGenVersion": 2
-		},
-		"node-1746503268291": {
-			"nodeId": "node-1746503268291",
-			"dataPreview": false,
-			"previewAmount": 0,
-			"inputs": [],
-			"name": "Fuente_Vacunacion_2017",
-			"generatedNodeName": "Fuente_Vacunacion_2017_node1746503268291",
-			"classification": "DataSource",
-			"type": "S3",
-			"isCatalog": false,
-			"format": "csv",
-			"paths": [
-				"s3://uniandes-bi-proyecto-2-202510-source/CoberturasVacunas_2017.csv"
-			],
-			"compressionType": null,
-			"exclusions": [],
-			"groupFiles": null,
-			"groupSize": null,
-			"recurse": true,
-			"maxBand": null,
-			"maxFilesInBand": null,
-			"additionalOptions": {
-				"boundedSize": null,
-				"boundedFiles": null,
-				"enableSamplePath": false,
-				"samplePath": "s3://uniandes-bi-proyecto-2-202510-source/CoberturasVacunas_2017.csv",
-				"boundedOption": null
-			},
-			"separator": ",",
-			"escaper": "",
-			"quoteChar": "\"",
-			"multiline": null,
-			"withHeader": true,
-			"writeHeader": null,
-			"skipFirst": null,
-			"optimizePerformance": false,
-			"outputSchemas": [
-				[
-					{
-						"key": "código",
-						"fullPath": [
-							"código"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "departamentos",
-						"fullPath": [
-							"departamentos"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "población menor 1 año (meta programática)",
-						"fullPath": [
-							"población menor 1 año (meta programática)"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica",
-						"fullPath": [
-							"bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "%",
-						"fullPath": [
-							"%"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "hepatitis b recien nacido (hasta 29 días) recien nacido (primeras 12 horas) d. unica",
-						"fullPath": [
-							"hepatitis b recien nacido (hasta 29 días) recien nacido (primeras 12 horas) d. unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "hepatitis b recien nacido (hasta 29 días) recien nacido (despues de las primeras 12 horas) d. unica",
-						"fullPath": [
-							"hepatitis b recien nacido (hasta 29 días) recien nacido (despues de las primeras 12 horas) d. unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "hb recien nacido (hasta 29 días) (primeras 12 horas)+ despues de las primeras 12 horas d. unica",
-						"fullPath": [
-							"hb recien nacido (hasta 29 días) (primeras 12 horas)+ despues de las primeras 12 horas d. unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "antipolio inactivada (vip) parenteral<  de 1 año 1ras. dosis",
-						"fullPath": [
-							"antipolio inactivada (vip) parenteral<  de 1 año 1ras. dosis"
+							"antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis"
 						],
 						"type": "string",
 						"glueStudioType": null,
@@ -2881,9 +954,9 @@
 						"children": null
 					},
 					{
-						"key": "población de 1 año (meta programática )",
+						"key": "población de 1 año (meta programática)",
 						"fullPath": [
-							"población de 1 año (meta programática )"
+							"población de 1 año (meta programática)"
 						],
 						"type": "string",
 						"glueStudioType": null,
@@ -3016,27 +1089,9 @@
 						"children": null
 					},
 					{
-						"key": "flu de 19 a 49 años única unica",
+						"key": "flu gestantes a partir de la semana 14 unica",
 						"fullPath": [
-							"flu de 19 a 49 años única unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "flu de 50 años y más unica",
-						"fullPath": [
-							"flu de 50 años y más unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "gestantes a partir de la semana 14 unica",
-						"fullPath": [
-							"gestantes a partir de la semana 14 unica"
+							"flu gestantes a partir de la semana 14 unica"
 						],
 						"type": "string",
 						"glueStudioType": null,
@@ -3046,33 +1101,6 @@
 						"key": "tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo",
 						"fullPath": [
 							"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "vph 1a",
-						"fullPath": [
-							"vph 1a"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "2a",
-						"fullPath": [
-							"2a"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "3a",
-						"fullPath": [
-							"3a"
 						],
 						"type": "string",
 						"glueStudioType": null,
@@ -3092,47 +1120,29 @@
 			"calculatedType": "",
 			"codeGenVersion": 2
 		},
-		"node-1746509876227": {
-			"nodeId": "node-1746509876227",
+		"node-1746508039137": {
+			"nodeId": "node-1746508039137",
 			"dataPreview": false,
 			"previewAmount": 0,
 			"inputs": [
-				"node-1746508151814"
-			],
-			"name": "SelectFields_DimFecha",
-			"generatedNodeName": "SelectFields_DimFecha_node1746509876227",
-			"classification": "Transform",
-			"type": "SelectFields",
-			"paths": [
-				"Anio"
-			],
-			"parentsValid": true,
-			"calculatedType": "",
-			"codeGenVersion": 2
-		},
-		"node-1746508057611": {
-			"nodeId": "node-1746508057611",
-			"dataPreview": false,
-			"previewAmount": 0,
-			"inputs": [
-				"node-1746506876345"
+				"node-1746506536033"
 			],
 			"name": "SQL Query",
-			"generatedNodeName": "SQLQuery_node1746508057611",
+			"generatedNodeName": "SQLQuery_node1746508039137",
 			"classification": "Transform",
 			"type": "SqlCode",
 			"sqlAliases": [
 				{
-					"from": "node-1746506876345",
+					"from": "node-1746506536033",
 					"alias": "myDataSource"
 				}
 			],
 			"outputSchemas": [
 				[
 					{
-						"key": "CodigoDepartamento",
+						"key": "codigo",
 						"fullPath": [
-							"CodigoDepartamento"
+							"codigo"
 						],
 						"type": "float",
 						"glueStudioType": null,
@@ -3152,7 +1162,43 @@
 						"fullPath": [
 							"PoblacionMenor1"
 						],
-						"type": "float",
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica",
+						"fullPath": [
+							"bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "hb recien nacido (hasta 29 días) d. unica",
+						"fullPath": [
+							"hb recien nacido (hasta 29 días) d. unica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis",
+						"fullPath": [
+							"antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "vop <de1 año + vip <1año 3as 3.dosis",
+						"fullPath": [
+							"vop <de1 año + vip <1año 3as 3.dosis"
+						],
+						"type": "string",
 						"glueStudioType": null,
 						"children": null
 					},
@@ -3161,7 +1207,7 @@
 						"fullPath": [
 							"PentaPrimerasDosis"
 						],
-						"type": "float",
+						"type": "string",
 						"glueStudioType": null,
 						"children": null
 					},
@@ -3170,16 +1216,232 @@
 						"fullPath": [
 							"PentaSegundasDosis"
 						],
-						"type": "float",
+						"type": "string",
 						"glueStudioType": null,
 						"children": null
 					},
 					{
-						"key": "PentaTercerasDosis",
+						"key": "penta menor de un año 3ras dosis",
 						"fullPath": [
-							"PentaTercerasDosis"
+							"penta menor de un año 3ras dosis"
 						],
-						"type": "float",
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "rotavirus de 2 a 3 meses y 21 dias 1ra dosis",
+						"fullPath": [
+							"rotavirus de 2 a 3 meses y 21 dias 1ra dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "rotavirus de 4 a 11 meses y 29 dias 2da dosis",
+						"fullPath": [
+							"rotavirus de 4 a 11 meses y 29 dias 2da dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "flu de 6 meses a 11 meses 1ra dosis",
+						"fullPath": [
+							"flu de 6 meses a 11 meses 1ra dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "flu de 6 meses a 11 meses 2da dosis",
+						"fullPath": [
+							"flu de 6 meses a 11 meses 2da dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo (2 a 11 meses 29 dias) 1ra dosis",
+						"fullPath": [
+							"neumo (2 a 11 meses 29 dias) 1ra dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo (2 a 11 meses 29 dias) 2da dosis",
+						"fullPath": [
+							"neumo (2 a 11 meses 29 dias) 2da dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "poblacion_1_ano_meta_programatica",
+						"fullPath": [
+							"poblacion_1_ano_meta_programatica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "srp (t.v.) de un año u.dósis",
+						"fullPath": [
+							"srp (t.v.) de un año u.dósis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "varicela de 1 año 1a u.dósis",
+						"fullPath": [
+							"varicela de 1 año 1a u.dósis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "f.a. 1 año u.dósis",
+						"fullPath": [
+							"f.a. 1 año u.dósis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo de (12 meses a 23 meses) ref.",
+						"fullPath": [
+							"neumo de (12 meses a 23 meses) ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo de (12-23 meses) 1ra dosis",
+						"fullPath": [
+							"neumo de (12-23 meses) 1ra dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo de (12-23 meses) 2da dosis",
+						"fullPath": [
+							"neumo de (12-23 meses) 2da dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo de (24- 35 meses) dosis unica",
+						"fullPath": [
+							"neumo de (24- 35 meses) dosis unica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "ha 1 año u. dósis",
+						"fullPath": [
+							"ha 1 año u. dósis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "vop al año de la 3ra dosis 1er. ref.",
+						"fullPath": [
+							"vop al año de la 3ra dosis 1er. ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "dpt al año de la 3ra dosis 1er. ref.",
+						"fullPath": [
+							"dpt al año de la 3ra dosis 1er. ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "poblacion_5_anos_meta_programatica",
+						"fullPath": [
+							"poblacion_5_anos_meta_programatica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "vop 5 años 2do. ref.",
+						"fullPath": [
+							"vop 5 años 2do. ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "dpt 5 años 2do. ref.",
+						"fullPath": [
+							"dpt 5 años 2do. ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "srp (t.v.) 5 años ref.",
+						"fullPath": [
+							"srp (t.v.) 5 años ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "flu gestantes a partir de la semana 14 unica",
+						"fullPath": [
+							"flu gestantes a partir de la semana 14 unica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo",
+						"fullPath": [
+							"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Region",
+						"fullPath": [
+							"Region"
+						],
+						"type": "string",
 						"glueStudioType": null,
 						"children": null
 					},
@@ -3196,506 +1458,184 @@
 			],
 			"parentsValid": true,
 			"calculatedType": "",
-			"sqlQuery": "SELECT \r\n  *, \r\n  2017 AS Anio \r\nFROM myDataSource",
+			"sqlQuery": "SELECT \r\n  *, \r\n  2016 AS Anio \r\nFROM myDataSource",
 			"codeGenVersion": 2
 		},
-		"node-1746509793839": {
-			"nodeId": "node-1746509793839",
-			"dataPreview": false,
-			"previewAmount": 0,
-			"inputs": [
-				"node-1746509712134"
-			],
-			"name": "Drop Duplicates",
-			"generatedNodeName": "DropDuplicates_node1746509793839",
-			"classification": "Transform",
-			"type": "DropDuplicates",
-			"parentsValid": true,
-			"calculatedType": "",
-			"columns": [],
-			"codeGenVersion": 2
-		},
-		"node-1746511492366": {
-			"nodeId": "node-1746511492366",
+		"node-1747378584032": {
+			"nodeId": "node-1747378584032",
 			"dataPreview": false,
 			"previewAmount": 0,
 			"inputs": [
 				"node-1746508151814"
 			],
-			"name": "Target_HechoVacunacion",
-			"generatedNodeName": "Target_HechoVacunacion_node1746511492366",
-			"classification": "DataSink",
-			"type": "S3",
-			"streamingBatchInterval": 100,
-			"format": "glueparquet",
-			"compression": "snappy",
-			"numberTargetPartitions": "0",
-			"path": "s3://uniandes-bi-proyecto-2-202510-target/dimensional/HechoVacunacion/",
-			"partitionKeys": [],
-			"schemaChangePolicy": {
-				"enableUpdateCatalog": true,
-				"updateBehavior": "UPDATE_IN_DATABASE",
-				"database": "vacunacion_datamart",
-				"table": "hecho_vacunacion"
-			},
-			"updateCatalogOptions": "schemaAndPartitions",
-			"autoDataQuality": {
-				"isEnabled": true,
-				"evaluationContext": "EvaluateDataQuality_node1746511162130"
-			},
-			"calculatedType": "",
-			"codeGenVersion": 2
-		},
-		"node-1746506876345": {
-			"nodeId": "node-1746506876345",
-			"dataPreview": false,
-			"previewAmount": 0,
-			"inputs": [
-				"node-1746503268291"
-			],
-			"name": "ApplyMapping_2017",
-			"generatedNodeName": "ApplyMapping_2017_node1746506876345",
+			"name": "SelectFields_DimPoblacion",
+			"generatedNodeName": "SelectFields_DimPoblacion_node1747378584032",
 			"classification": "Transform",
-			"type": "ApplyMapping",
-			"mapping": [
-				{
-					"toKey": "CodigoDepartamento",
-					"fromPath": [
-						"código"
-					],
-					"toType": "float",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				},
-				{
-					"toKey": "NombreDepartamento",
-					"fromPath": [
-						"departamentos"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				},
-				{
-					"toKey": "PoblacionMenor1",
-					"fromPath": [
-						"población menor 1 año (meta programática)"
-					],
-					"toType": "float",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				},
-				{
-					"toKey": "bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica",
-					"fromPath": [
-						"bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "%",
-					"fromPath": [
-						"%"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "hepatitis b recien nacido (hasta 29 días) recien nacido (primeras 12 horas) d. unica",
-					"fromPath": [
-						"hepatitis b recien nacido (hasta 29 días) recien nacido (primeras 12 horas) d. unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "hepatitis b recien nacido (hasta 29 días) recien nacido (despues de las primeras 12 horas) d. unica",
-					"fromPath": [
-						"hepatitis b recien nacido (hasta 29 días) recien nacido (despues de las primeras 12 horas) d. unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "hb recien nacido (hasta 29 días) (primeras 12 horas)+ despues de las primeras 12 horas d. unica",
-					"fromPath": [
-						"hb recien nacido (hasta 29 días) (primeras 12 horas)+ despues de las primeras 12 horas d. unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "antipolio inactivada (vip) parenteral<  de 1 año 1ras. dosis",
-					"fromPath": [
-						"antipolio inactivada (vip) parenteral<  de 1 año 1ras. dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "vop <de1 año + vip <1año 3as 3.dosis",
-					"fromPath": [
-						"vop <de1 año + vip <1año 3as 3.dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "PentaPrimerasDosis",
-					"fromPath": [
-						"penta menor de un año 1ras. dosis"
-					],
-					"toType": "float",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				},
-				{
-					"toKey": "PentaSegundasDosis",
-					"fromPath": [
-						"penta menor de un año 2das. dosis"
-					],
-					"toType": "float",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				},
-				{
-					"toKey": "PentaTercerasDosis",
-					"fromPath": [
-						"penta menor de un año 3ras dosis"
-					],
-					"toType": "float",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				},
-				{
-					"toKey": "rotavirus de 2 a 3 meses y 21 dias 1ra dosis",
-					"fromPath": [
-						"rotavirus de 2 a 3 meses y 21 dias 1ra dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "rotavirus de 4 a 11 meses y 29 dias 2da dosis",
-					"fromPath": [
-						"rotavirus de 4 a 11 meses y 29 dias 2da dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "flu de 6 meses a 11 meses 1ra dosis",
-					"fromPath": [
-						"flu de 6 meses a 11 meses 1ra dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "flu de 6 meses a 11 meses 2da dosis",
-					"fromPath": [
-						"flu de 6 meses a 11 meses 2da dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "neumo (2 a 11 meses 29 dias) 1ra dosis",
-					"fromPath": [
-						"neumo (2 a 11 meses 29 dias) 1ra dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "neumo (2 a 11 meses 29 dias) 2da dosis",
-					"fromPath": [
-						"neumo (2 a 11 meses 29 dias) 2da dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "población de 1 año (meta programática )",
-					"fromPath": [
-						"población de 1 año (meta programática )"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "srp (t.v.) de un año u.dósis",
-					"fromPath": [
-						"srp (t.v.) de un año u.dósis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "varicela de 1 año 1a u.dósis",
-					"fromPath": [
-						"varicela de 1 año 1a u.dósis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "f.a. 1 año u.dósis",
-					"fromPath": [
-						"f.a. 1 año u.dósis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "neumo de (12 meses a 23 meses) ref.",
-					"fromPath": [
-						"neumo de (12 meses a 23 meses) ref."
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "neumo de (12-23 meses) 1ra dosis",
-					"fromPath": [
-						"neumo de (12-23 meses) 1ra dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "neumo de (12-23 meses) 2da dosis",
-					"fromPath": [
-						"neumo de (12-23 meses) 2da dosis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "neumo de (24- 35 meses) dosis unica",
-					"fromPath": [
-						"neumo de (24- 35 meses) dosis unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "ha 1 año u. dósis",
-					"fromPath": [
-						"ha 1 año u. dósis"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "vop al año de la 3ra dosis 1er. ref.",
-					"fromPath": [
-						"vop al año de la 3ra dosis 1er. ref."
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "dpt al año de la 3ra dosis 1er. ref.",
-					"fromPath": [
-						"dpt al año de la 3ra dosis 1er. ref."
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "población 5 años (meta programática)",
-					"fromPath": [
-						"población 5 años (meta programática)"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "vop 5 años 2do. ref.",
-					"fromPath": [
-						"vop 5 años 2do. ref."
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "dpt 5 años 2do. ref.",
-					"fromPath": [
-						"dpt 5 años 2do. ref."
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "srp (t.v.) 5 años ref.",
-					"fromPath": [
-						"srp (t.v.) 5 años ref."
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "flu de 19 a 49 años única unica",
-					"fromPath": [
-						"flu de 19 a 49 años única unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "flu de 50 años y más unica",
-					"fromPath": [
-						"flu de 50 años y más unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "gestantes a partir de la semana 14 unica",
-					"fromPath": [
-						"gestantes a partir de la semana 14 unica"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo",
-					"fromPath": [
-						"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "vph 1a",
-					"fromPath": [
-						"vph 1a"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "2a",
-					"fromPath": [
-						"2a"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "3a",
-					"fromPath": [
-						"3a"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": true,
-					"children": null
-				},
-				{
-					"toKey": "Region",
-					"fromPath": [
-						"region"
-					],
-					"toType": "string",
-					"fromType": "string",
-					"dropped": false,
-					"children": null
-				}
+			"type": "SelectFields",
+			"paths": [
+				"poblacion_1_ano_meta_programatica",
+				"poblacion_5_anos_meta_programatica",
+				"PoblacionMenor1"
 			],
 			"parentsValid": true,
 			"calculatedType": "",
+			"codeGenVersion": 2,
+			"outputSchemas": [
+				[
+					{
+						"key": "poblacion_1_ano_meta_programatica",
+						"fullPath": [
+							"poblacion_1_ano_meta_programatica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "poblacion_5_anos_meta_programatica",
+						"fullPath": [
+							"poblacion_5_anos_meta_programatica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "PoblacionMenor1",
+						"fullPath": [
+							"PoblacionMenor1"
+						],
+						"type": "string"
+					}
+				]
+			]
+		},
+		"node-1747377478529": {
+			"nodeId": "node-1747377478529",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1746512182699"
+			],
+			"name": "DimVacuna",
+			"generatedNodeName": "DimVacuna_node1747377478529",
+			"classification": "DataSink",
+			"type": "AmazonRedshift",
+			"streamingBatchInterval": 100,
+			"data": {
+				"accessType": "connection",
+				"sourceType": "table",
+				"connection": {
+					"value": "Redshift connection",
+					"label": "Redshift connection",
+					"description": "No description available. Version: 2"
+				},
+				"schema": {
+					"value": "public",
+					"label": "public",
+					"description": null
+				},
+				"catalogDatabase": null,
+				"catalogRedshiftTable": null,
+				"catalogRedshiftSchema": null,
+				"table": {
+					"value": "dimvacuna",
+					"label": "dimvacuna",
+					"description": null
+				},
+				"catalogTable": null,
+				"tempDir": "s3://aws-glue-assets-730335326856-us-east-1/temporary/",
+				"iamRole": null,
+				"sampleQuery": null,
+				"preAction": null,
+				"postAction": null,
+				"action": "append",
+				"tableSchema": [
+					{
+						"value": "id_vacuna",
+						"label": "id_vacuna",
+						"description": "INTEGER"
+					},
+					{
+						"value": "codigo_vacuna",
+						"label": "codigo_vacuna",
+						"description": "VARCHAR"
+					},
+					{
+						"value": "nombre_vacuna",
+						"label": "nombre_vacuna",
+						"description": "VARCHAR"
+					},
+					{
+						"value": "tipo_vacuna",
+						"label": "tipo_vacuna",
+						"description": "VARCHAR"
+					},
+					{
+						"value": "grupo_edad",
+						"label": "grupo_edad",
+						"description": "VARCHAR"
+					},
+					{
+						"value": "tipo_dosis",
+						"label": "tipo_dosis",
+						"description": "VARCHAR"
+					},
+					{
+						"value": "numero_dosis",
+						"label": "numero_dosis",
+						"description": "INTEGER"
+					},
+					{
+						"value": "descripcion_completa",
+						"label": "descripcion_completa",
+						"description": "VARCHAR"
+					}
+				],
+				"selectedColumns": [],
+				"crawlerConnection": null,
+				"tablePrefix": null,
+				"upsert": false,
+				"mergeAction": "simple",
+				"mergeWhenMatched": "update",
+				"mergeWhenNotMatched": "insert",
+				"mergeClause": null,
+				"stagingTable": "public.dimvacuna_temp_xfyhhd",
+				"advancedOptions": []
+			},
+			"calculatedType": "",
 			"codeGenVersion": 2
 		},
-		"node-1746503419802": {
-			"nodeId": "node-1746503419802",
+		"node-1746508125898": {
+			"nodeId": "node-1746508125898",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1746508039137",
+				"node-1746508057611"
+			],
+			"name": "Union",
+			"generatedNodeName": "Union_node1746508125898",
+			"classification": "Transform",
+			"type": "Union",
+			"parentsValid": true,
+			"calculatedType": "",
+			"sources": [
+				"node-1746508039137",
+				"node-1746508057611"
+			],
+			"unionType": "ALL",
+			"codeGenVersion": 2
+		},
+		"node-1746503268291": {
+			"nodeId": "node-1746503268291",
 			"dataPreview": false,
 			"previewAmount": 0,
 			"inputs": [],
-			"name": "Fuente_Vacunacion_2019",
-			"generatedNodeName": "Fuente_Vacunacion_2019_node1746503419802",
+			"name": "Fuente_Vacunacion_2017",
+			"generatedNodeName": "Fuente_Vacunacion_2017_node1746503268291",
 			"classification": "DataSource",
 			"type": "S3",
 			"isCatalog": false,
 			"format": "csv",
 			"paths": [
-				"s3://uniandes-bi-proyecto-2-202510-source/CoberturasVacunas_2019.csv"
+				"s3://uniandes-bi-proycto-2-202510-source/CoberturasVacunas_2017v3.csv"
 			],
 			"compressionType": null,
 			"exclusions": [],
@@ -3708,7 +1648,7 @@
 				"boundedSize": null,
 				"boundedFiles": null,
 				"enableSamplePath": false,
-				"samplePath": "s3://uniandes-bi-proyecto-2-202510-source/CoberturasVacunas_2019.csv",
+				"samplePath": "s3://uniandes-bi-proycto-2-202510-source/CoberturasVacunas_2017v3.csv",
 				"boundedOption": null
 			},
 			"separator": ",",
@@ -3722,9 +1662,9 @@
 			"outputSchemas": [
 				[
 					{
-						"key": "código",
+						"key": "codigo",
 						"fullPath": [
-							"código"
+							"codigo"
 						],
 						"type": "string",
 						"glueStudioType": null,
@@ -3758,36 +1698,9 @@
 						"children": null
 					},
 					{
-						"key": "%",
+						"key": "hb recien nacido (hasta 29 días) d. unica",
 						"fullPath": [
-							"%"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "hepatitis b recien nacido (hasta 29 días) recien nacido (primeras 12 horas) d. unica",
-						"fullPath": [
-							"hepatitis b recien nacido (hasta 29 días) recien nacido (primeras 12 horas) d. unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "hepatitis b recien nacido (hasta 29 días) recien nacido (despues de las primeras 12 horas) d. unica",
-						"fullPath": [
-							"hepatitis b recien nacido (hasta 29 días) recien nacido (despues de las primeras 12 horas) d. unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "hb recien nacido (hasta 29 días) (primeras 12 horas)+ despues de las primeras 12 horas d. unica",
-						"fullPath": [
-							"hb recien nacido (hasta 29 días) (primeras 12 horas)+ despues de las primeras 12 horas d. unica"
+							"hb recien nacido (hasta 29 días) d. unica"
 						],
 						"type": "string",
 						"glueStudioType": null,
@@ -3830,9 +1743,9 @@
 						"children": null
 					},
 					{
-						"key": "penta menor de un año 3ras. dosis",
+						"key": "penta menor de un año 3ras dosis",
 						"fullPath": [
-							"penta menor de un año 3ras. dosis"
+							"penta menor de un año 3ras dosis"
 						],
 						"type": "string",
 						"glueStudioType": null,
@@ -3920,9 +1833,1203 @@
 						"children": null
 					},
 					{
+						"key": "f.a. 1 año u.dósis",
+						"fullPath": [
+							"f.a. 1 año u.dósis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo de (12 meses a 23 meses) ref.",
+						"fullPath": [
+							"neumo de (12 meses a 23 meses) ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo de (12-23 meses) 1ra dosis",
+						"fullPath": [
+							"neumo de (12-23 meses) 1ra dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo de (12-23 meses) 2da dosis",
+						"fullPath": [
+							"neumo de (12-23 meses) 2da dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo de (24- 35 meses) dosis unica",
+						"fullPath": [
+							"neumo de (24- 35 meses) dosis unica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
 						"key": "ha 1 año u. dósis",
 						"fullPath": [
 							"ha 1 año u. dósis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "vop al año de la 3ra dosis 1er. ref.",
+						"fullPath": [
+							"vop al año de la 3ra dosis 1er. ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "dpt al año de la 3ra dosis 1er. ref.",
+						"fullPath": [
+							"dpt al año de la 3ra dosis 1er. ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "población 5 años (meta programática)",
+						"fullPath": [
+							"población 5 años (meta programática)"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "vop 5 años 2do. ref.",
+						"fullPath": [
+							"vop 5 años 2do. ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "dpt 5 años 2do. ref.",
+						"fullPath": [
+							"dpt 5 años 2do. ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "srp (t.v.) 5 años ref.",
+						"fullPath": [
+							"srp (t.v.) 5 años ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "flu gestantes a partir de la semana 14 unica",
+						"fullPath": [
+							"flu gestantes a partir de la semana 14 unica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo",
+						"fullPath": [
+							"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "region",
+						"fullPath": [
+							"region"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					}
+				]
+			],
+			"calculatedType": "",
+			"codeGenVersion": 2
+		},
+		"node-1746509876227": {
+			"nodeId": "node-1746509876227",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1746508151814"
+			],
+			"name": "SelectFields_DimFecha",
+			"generatedNodeName": "SelectFields_DimFecha_node1746509876227",
+			"classification": "Transform",
+			"type": "SelectFields",
+			"paths": [
+				"Anio"
+			],
+			"parentsValid": true,
+			"calculatedType": "",
+			"codeGenVersion": 2,
+			"outputSchemas": [
+				[
+					{
+						"key": "Anio",
+						"fullPath": [
+							"Anio"
+						],
+						"type": "int"
+					}
+				]
+			]
+		},
+		"node-1747369090699": {
+			"nodeId": "node-1747369090699",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1746508151814"
+			],
+			"name": "SelectFields_DimVacuna",
+			"generatedNodeName": "SelectFields_DimVacuna_node1747369090699",
+			"classification": "Transform",
+			"type": "SelectFields",
+			"paths": [
+				"bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica",
+				"`antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis`",
+				"`hb recien nacido (hasta 29 días) d. unica`",
+				"`vop <de1 año + vip <1año 3as 3.dosis`",
+				"PentaPrimerasDosis",
+				"PentaSegundasDosis",
+				"penta menor de un año 3ras dosis",
+				"rotavirus de 2 a 3 meses y 21 dias 1ra dosis",
+				"rotavirus de 4 a 11 meses y 29 dias 2da dosis",
+				"flu de 6 meses a 11 meses 1ra dosis",
+				"flu de 6 meses a 11 meses 2da dosis",
+				"neumo (2 a 11 meses 29 dias) 1ra dosis",
+				"neumo (2 a 11 meses 29 dias) 2da dosis",
+				"`srp (t.v.) de un año u.dósis`",
+				"`varicela de 1 año 1a u.dósis`",
+				"`f.a. 1 año u.dósis`",
+				"`neumo de (12 meses a 23 meses) ref.`",
+				"neumo de (12-23 meses) 1ra dosis",
+				"neumo de (12-23 meses) 2da dosis",
+				"neumo de (24- 35 meses) dosis unica",
+				"`ha 1 año u. dósis`",
+				"`vop al año de la 3ra dosis 1er. ref.`",
+				"`dpt al año de la 3ra dosis 1er. ref.`",
+				"`vop 5 años 2do. ref.`",
+				"`dpt 5 años 2do. ref.`",
+				"`srp (t.v.) 5 años ref.`",
+				"flu gestantes a partir de la semana 14 unica",
+				"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
+			],
+			"parentsValid": true,
+			"calculatedType": "",
+			"codeGenVersion": 2,
+			"outputSchemas": [
+				[
+					{
+						"key": "bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica",
+						"fullPath": [
+							"bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis",
+						"fullPath": [
+							"antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "hb recien nacido (hasta 29 días) d. unica",
+						"fullPath": [
+							"hb recien nacido (hasta 29 días) d. unica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "vop <de1 año + vip <1año 3as 3.dosis",
+						"fullPath": [
+							"vop <de1 año + vip <1año 3as 3.dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "PentaPrimerasDosis",
+						"fullPath": [
+							"PentaPrimerasDosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "PentaSegundasDosis",
+						"fullPath": [
+							"PentaSegundasDosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "penta menor de un año 3ras dosis",
+						"fullPath": [
+							"penta menor de un año 3ras dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "rotavirus de 2 a 3 meses y 21 dias 1ra dosis",
+						"fullPath": [
+							"rotavirus de 2 a 3 meses y 21 dias 1ra dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "rotavirus de 4 a 11 meses y 29 dias 2da dosis",
+						"fullPath": [
+							"rotavirus de 4 a 11 meses y 29 dias 2da dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "flu de 6 meses a 11 meses 1ra dosis",
+						"fullPath": [
+							"flu de 6 meses a 11 meses 1ra dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "flu de 6 meses a 11 meses 2da dosis",
+						"fullPath": [
+							"flu de 6 meses a 11 meses 2da dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo (2 a 11 meses 29 dias) 1ra dosis",
+						"fullPath": [
+							"neumo (2 a 11 meses 29 dias) 1ra dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo (2 a 11 meses 29 dias) 2da dosis",
+						"fullPath": [
+							"neumo (2 a 11 meses 29 dias) 2da dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "srp (t.v.) de un año u.dósis",
+						"fullPath": [
+							"srp (t.v.) de un año u.dósis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "varicela de 1 año 1a u.dósis",
+						"fullPath": [
+							"varicela de 1 año 1a u.dósis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "f.a. 1 año u.dósis",
+						"fullPath": [
+							"f.a. 1 año u.dósis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo de (12 meses a 23 meses) ref.",
+						"fullPath": [
+							"neumo de (12 meses a 23 meses) ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo de (12-23 meses) 1ra dosis",
+						"fullPath": [
+							"neumo de (12-23 meses) 1ra dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo de (12-23 meses) 2da dosis",
+						"fullPath": [
+							"neumo de (12-23 meses) 2da dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo de (24- 35 meses) dosis unica",
+						"fullPath": [
+							"neumo de (24- 35 meses) dosis unica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "ha 1 año u. dósis",
+						"fullPath": [
+							"ha 1 año u. dósis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "vop al año de la 3ra dosis 1er. ref.",
+						"fullPath": [
+							"vop al año de la 3ra dosis 1er. ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "dpt al año de la 3ra dosis 1er. ref.",
+						"fullPath": [
+							"dpt al año de la 3ra dosis 1er. ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "vop 5 años 2do. ref.",
+						"fullPath": [
+							"vop 5 años 2do. ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "dpt 5 años 2do. ref.",
+						"fullPath": [
+							"dpt 5 años 2do. ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "srp (t.v.) 5 años ref.",
+						"fullPath": [
+							"srp (t.v.) 5 años ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "flu gestantes a partir de la semana 14 unica",
+						"fullPath": [
+							"flu gestantes a partir de la semana 14 unica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo",
+						"fullPath": [
+							"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
+						],
+						"type": "string"
+					}
+				]
+			]
+		},
+		"node-1746507364437": {
+			"nodeId": "node-1746507364437",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1746503384481"
+			],
+			"name": "ApplyMapping_2018",
+			"generatedNodeName": "ApplyMapping_2018_node1746507364437",
+			"classification": "Transform",
+			"type": "ApplyMapping",
+			"mapping": [
+				{
+					"toKey": "codigo",
+					"fromPath": [
+						"codigo"
+					],
+					"toType": "float",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "NombreDepartamento",
+					"fromPath": [
+						"departamentos"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "PoblacionMenor1",
+					"fromPath": [
+						"población menor 1 año (meta programática)"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica",
+					"fromPath": [
+						"bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "hb recien nacido (hasta 29 días) d. unica",
+					"fromPath": [
+						"hb recien nacido (hasta 29 días) d. unica"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis",
+					"fromPath": [
+						"antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "vop <de1 año + vip <1año 3as 3.dosis",
+					"fromPath": [
+						"vop <de1 año + vip <1año 3as 3.dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "PentaPrimerasDosis",
+					"fromPath": [
+						"penta menor de un año 1ras. dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "PentaSegundasDosis",
+					"fromPath": [
+						"penta menor de un año 2das. dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "penta menor de un año 3ras dosis",
+					"fromPath": [
+						"penta menor de un año 3ras dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "rotavirus de 2 a 3 meses y 21 dias 1ra dosis",
+					"fromPath": [
+						"rotavirus de 2 a 3 meses y 21 dias 1ra dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "rotavirus de 4 a 11 meses y 29 dias 2da dosis",
+					"fromPath": [
+						"rotavirus de 4 a 11 meses y 29 dias 2da dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "flu de 6 meses a 11 meses 1ra dosis",
+					"fromPath": [
+						"flu de 6 meses a 11 meses 1ra dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "flu de 6 meses a 11 meses 2da dosis",
+					"fromPath": [
+						"flu de 6 meses a 11 meses 2da dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "neumo (2 a 11 meses 29 dias) 1ra dosis",
+					"fromPath": [
+						"neumo (2 a 11 meses 29 dias) 1ra dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "neumo (2 a 11 meses 29 dias) 2da dosis",
+					"fromPath": [
+						"neumo (2 a 11 meses 29 dias) 2da dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "poblacion_1_ano_meta_programatica",
+					"fromPath": [
+						"población de 1 año (meta programática)"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "srp (t.v.) de un año u.dósis",
+					"fromPath": [
+						"srp (t.v.) de un año u.dósis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "varicela de 1 año 1a u.dósis",
+					"fromPath": [
+						"varicela de 1 año 1a u.dósis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "f.a. 1 año u.dósis",
+					"fromPath": [
+						"f.a. 1 año u.dósis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "neumo de (12 meses a 23 meses) ref.",
+					"fromPath": [
+						"neumo de (12 meses a 23 meses) ref."
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "neumo de (12-23 meses) 1ra dosis",
+					"fromPath": [
+						"neumo de (12-23 meses) 1ra dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "neumo de (12-23 meses) 2da dosis",
+					"fromPath": [
+						"neumo de (12-23 meses) 2da dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "neumo de (24- 35 meses) dosis unica",
+					"fromPath": [
+						"neumo de (24- 35 meses) dosis unica"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "ha 1 año u. dósis",
+					"fromPath": [
+						"ha 1 año u. dósis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "vop al año de la 3ra dosis 1er. ref.",
+					"fromPath": [
+						"vop al año de la 3ra dosis 1er. ref."
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "dpt al año de la 3ra dosis 1er. ref.",
+					"fromPath": [
+						"dpt al año de la 3ra dosis 1er. ref."
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "poblacion_5_anos_meta_programatica",
+					"fromPath": [
+						"población 5 años (meta programática)"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "vop 5 años 2do. ref.",
+					"fromPath": [
+						"vop 5 años 2do. ref."
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "dpt 5 años 2do. ref.",
+					"fromPath": [
+						"dpt 5 años 2do. ref."
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "srp (t.v.) 5 años ref.",
+					"fromPath": [
+						"srp (t.v.) 5 años ref."
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "flu gestantes a partir de la semana 14 unica",
+					"fromPath": [
+						"flu gestantes a partir de la semana 14 unica"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo",
+					"fromPath": [
+						"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "Region",
+					"fromPath": [
+						"region"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				}
+			],
+			"parentsValid": true,
+			"calculatedType": "",
+			"codeGenVersion": 2,
+			"outputSchemas": [
+				[
+					{
+						"key": "codigo",
+						"fullPath": [
+							"codigo"
+						],
+						"type": "float"
+					},
+					{
+						"key": "NombreDepartamento",
+						"fullPath": [
+							"NombreDepartamento"
+						],
+						"type": "string"
+					},
+					{
+						"key": "PoblacionMenor1",
+						"fullPath": [
+							"PoblacionMenor1"
+						],
+						"type": "string"
+					},
+					{
+						"key": "bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica",
+						"fullPath": [
+							"bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "hb recien nacido (hasta 29 días) d. unica",
+						"fullPath": [
+							"hb recien nacido (hasta 29 días) d. unica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis",
+						"fullPath": [
+							"antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "vop <de1 año + vip <1año 3as 3.dosis",
+						"fullPath": [
+							"vop <de1 año + vip <1año 3as 3.dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "PentaPrimerasDosis",
+						"fullPath": [
+							"PentaPrimerasDosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "PentaSegundasDosis",
+						"fullPath": [
+							"PentaSegundasDosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "penta menor de un año 3ras dosis",
+						"fullPath": [
+							"penta menor de un año 3ras dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "rotavirus de 2 a 3 meses y 21 dias 1ra dosis",
+						"fullPath": [
+							"rotavirus de 2 a 3 meses y 21 dias 1ra dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "rotavirus de 4 a 11 meses y 29 dias 2da dosis",
+						"fullPath": [
+							"rotavirus de 4 a 11 meses y 29 dias 2da dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "flu de 6 meses a 11 meses 1ra dosis",
+						"fullPath": [
+							"flu de 6 meses a 11 meses 1ra dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "flu de 6 meses a 11 meses 2da dosis",
+						"fullPath": [
+							"flu de 6 meses a 11 meses 2da dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo (2 a 11 meses 29 dias) 1ra dosis",
+						"fullPath": [
+							"neumo (2 a 11 meses 29 dias) 1ra dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo (2 a 11 meses 29 dias) 2da dosis",
+						"fullPath": [
+							"neumo (2 a 11 meses 29 dias) 2da dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "poblacion_1_ano_meta_programatica",
+						"fullPath": [
+							"poblacion_1_ano_meta_programatica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "srp (t.v.) de un año u.dósis",
+						"fullPath": [
+							"srp (t.v.) de un año u.dósis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "varicela de 1 año 1a u.dósis",
+						"fullPath": [
+							"varicela de 1 año 1a u.dósis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "f.a. 1 año u.dósis",
+						"fullPath": [
+							"f.a. 1 año u.dósis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo de (12 meses a 23 meses) ref.",
+						"fullPath": [
+							"neumo de (12 meses a 23 meses) ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo de (12-23 meses) 1ra dosis",
+						"fullPath": [
+							"neumo de (12-23 meses) 1ra dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo de (12-23 meses) 2da dosis",
+						"fullPath": [
+							"neumo de (12-23 meses) 2da dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo de (24- 35 meses) dosis unica",
+						"fullPath": [
+							"neumo de (24- 35 meses) dosis unica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "ha 1 año u. dósis",
+						"fullPath": [
+							"ha 1 año u. dósis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "vop al año de la 3ra dosis 1er. ref.",
+						"fullPath": [
+							"vop al año de la 3ra dosis 1er. ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "dpt al año de la 3ra dosis 1er. ref.",
+						"fullPath": [
+							"dpt al año de la 3ra dosis 1er. ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "poblacion_5_anos_meta_programatica",
+						"fullPath": [
+							"poblacion_5_anos_meta_programatica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "vop 5 años 2do. ref.",
+						"fullPath": [
+							"vop 5 años 2do. ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "dpt 5 años 2do. ref.",
+						"fullPath": [
+							"dpt 5 años 2do. ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "srp (t.v.) 5 años ref.",
+						"fullPath": [
+							"srp (t.v.) 5 años ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "flu gestantes a partir de la semana 14 unica",
+						"fullPath": [
+							"flu gestantes a partir de la semana 14 unica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo",
+						"fullPath": [
+							"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
+						],
+						"type": "string"
+					},
+					{
+						"key": "Region",
+						"fullPath": [
+							"Region"
+						],
+						"type": "string"
+					}
+				]
+			]
+		},
+		"node-1746508057611": {
+			"nodeId": "node-1746508057611",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1746506876345"
+			],
+			"name": "SQL Query",
+			"generatedNodeName": "SQLQuery_node1746508057611",
+			"classification": "Transform",
+			"type": "SqlCode",
+			"sqlAliases": [
+				{
+					"from": "node-1746506876345",
+					"alias": "myDataSource"
+				}
+			],
+			"outputSchemas": [
+				[
+					{
+						"key": "codigo",
+						"fullPath": [
+							"codigo"
+						],
+						"type": "float",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "NombreDepartamento",
+						"fullPath": [
+							"NombreDepartamento"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "PoblacionMenor1",
+						"fullPath": [
+							"PoblacionMenor1"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica",
+						"fullPath": [
+							"bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "hb recien nacido (hasta 29 días) d. unica",
+						"fullPath": [
+							"hb recien nacido (hasta 29 días) d. unica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis",
+						"fullPath": [
+							"antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "vop <de1 año + vip <1año 3as 3.dosis",
+						"fullPath": [
+							"vop <de1 año + vip <1año 3as 3.dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "PentaPrimerasDosis",
+						"fullPath": [
+							"PentaPrimerasDosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "PentaSegundasDosis",
+						"fullPath": [
+							"PentaSegundasDosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "penta menor de un año 3ras dosis",
+						"fullPath": [
+							"penta menor de un año 3ras dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "rotavirus de 2 a 3 meses y 21 dias 1ra dosis",
+						"fullPath": [
+							"rotavirus de 2 a 3 meses y 21 dias 1ra dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "rotavirus de 4 a 11 meses y 29 dias 2da dosis",
+						"fullPath": [
+							"rotavirus de 4 a 11 meses y 29 dias 2da dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "flu de 6 meses a 11 meses 1ra dosis",
+						"fullPath": [
+							"flu de 6 meses a 11 meses 1ra dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "flu de 6 meses a 11 meses 2da dosis",
+						"fullPath": [
+							"flu de 6 meses a 11 meses 2da dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo (2 a 11 meses 29 dias) 1ra dosis",
+						"fullPath": [
+							"neumo (2 a 11 meses 29 dias) 1ra dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo (2 a 11 meses 29 dias) 2da dosis",
+						"fullPath": [
+							"neumo (2 a 11 meses 29 dias) 2da dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "poblacion_1_ano_meta_programatica",
+						"fullPath": [
+							"poblacion_1_ano_meta_programatica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "srp (t.v.) de un año u.dósis",
+						"fullPath": [
+							"srp (t.v.) de un año u.dósis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "varicela de 1 año 1a u.dósis",
+						"fullPath": [
+							"varicela de 1 año 1a u.dósis"
 						],
 						"type": "string",
 						"glueStudioType": null,
@@ -3974,6 +3081,15 @@
 						"children": null
 					},
 					{
+						"key": "ha 1 año u. dósis",
+						"fullPath": [
+							"ha 1 año u. dósis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
 						"key": "vop al año de la 3ra dosis 1er. ref.",
 						"fullPath": [
 							"vop al año de la 3ra dosis 1er. ref."
@@ -3992,9 +3108,9 @@
 						"children": null
 					},
 					{
-						"key": "población 5 años meta programática)",
+						"key": "poblacion_5_anos_meta_programatica",
 						"fullPath": [
-							"población 5 años meta programática)"
+							"poblacion_5_anos_meta_programatica"
 						],
 						"type": "string",
 						"glueStudioType": null,
@@ -4019,54 +3135,9 @@
 						"children": null
 					},
 					{
-						"key": "srp (t.v.) 5 años dosis ref.",
+						"key": "srp (t.v.) 5 años ref.",
 						"fullPath": [
-							"srp (t.v.) 5 años dosis ref."
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "varicela de 5 años u. dósis",
-						"fullPath": [
-							"varicela de 5 años u. dósis"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "flu de 18 a 40 años unica unica",
-						"fullPath": [
-							"flu de 18 a 40 años unica unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "flu de 41 a 59 años unica unica",
-						"fullPath": [
-							"flu de 41 a 59 años unica unica"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "población > de 60 años (dane) 30%",
-						"fullPath": [
-							"población > de 60 años (dane) 30%"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "flu de 60 años y mas unica",
-						"fullPath": [
-							"flu de 60 años y mas unica"
+							"srp (t.v.) 5 años ref."
 						],
 						"type": "string",
 						"glueStudioType": null,
@@ -4082,54 +3153,1399 @@
 						"children": null
 					},
 					{
-						"key": "tdap acelular gestantes de 10 años y mas u. d. c/ embarazo",
+						"key": "tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo",
 						"fullPath": [
-							"tdap acelular gestantes de 10 años y mas u. d. c/ embarazo"
+							"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
 						],
 						"type": "string",
 						"glueStudioType": null,
 						"children": null
 					},
 					{
-						"key": "vph niñas de 9 años pob. vph niñas de 9 años",
+						"key": "Region",
 						"fullPath": [
-							"vph niñas de 9 años pob. vph niñas de 9 años"
+							"Region"
 						],
 						"type": "string",
 						"glueStudioType": null,
 						"children": null
 					},
 					{
-						"key": "vph 1a dosis",
+						"key": "Anio",
 						"fullPath": [
-							"vph 1a dosis"
+							"Anio"
+						],
+						"type": "int",
+						"glueStudioType": null,
+						"children": null
+					}
+				]
+			],
+			"parentsValid": true,
+			"calculatedType": "",
+			"sqlQuery": "SELECT \r\n  *, \r\n  2017 AS Anio \r\nFROM myDataSource",
+			"codeGenVersion": 2
+		},
+		"node-1746506876345": {
+			"nodeId": "node-1746506876345",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1746503268291"
+			],
+			"name": "ApplyMapping_2017",
+			"generatedNodeName": "ApplyMapping_2017_node1746506876345",
+			"classification": "Transform",
+			"type": "ApplyMapping",
+			"mapping": [
+				{
+					"toKey": "codigo",
+					"fromPath": [
+						"codigo"
+					],
+					"toType": "float",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "NombreDepartamento",
+					"fromPath": [
+						"departamentos"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "PoblacionMenor1",
+					"fromPath": [
+						"población menor 1 año (meta programática)"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica",
+					"fromPath": [
+						"bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "hb recien nacido (hasta 29 días) d. unica",
+					"fromPath": [
+						"hb recien nacido (hasta 29 días) d. unica"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis",
+					"fromPath": [
+						"antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "vop <de1 año + vip <1año 3as 3.dosis",
+					"fromPath": [
+						"vop <de1 año + vip <1año 3as 3.dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "PentaPrimerasDosis",
+					"fromPath": [
+						"penta menor de un año 1ras. dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "PentaSegundasDosis",
+					"fromPath": [
+						"penta menor de un año 2das. dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "penta menor de un año 3ras dosis",
+					"fromPath": [
+						"penta menor de un año 3ras dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "rotavirus de 2 a 3 meses y 21 dias 1ra dosis",
+					"fromPath": [
+						"rotavirus de 2 a 3 meses y 21 dias 1ra dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "rotavirus de 4 a 11 meses y 29 dias 2da dosis",
+					"fromPath": [
+						"rotavirus de 4 a 11 meses y 29 dias 2da dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "flu de 6 meses a 11 meses 1ra dosis",
+					"fromPath": [
+						"flu de 6 meses a 11 meses 1ra dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "flu de 6 meses a 11 meses 2da dosis",
+					"fromPath": [
+						"flu de 6 meses a 11 meses 2da dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "neumo (2 a 11 meses 29 dias) 1ra dosis",
+					"fromPath": [
+						"neumo (2 a 11 meses 29 dias) 1ra dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "neumo (2 a 11 meses 29 dias) 2da dosis",
+					"fromPath": [
+						"neumo (2 a 11 meses 29 dias) 2da dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "poblacion_1_ano_meta_programatica",
+					"fromPath": [
+						"población de 1 año (meta programática)"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "srp (t.v.) de un año u.dósis",
+					"fromPath": [
+						"srp (t.v.) de un año u.dósis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "varicela de 1 año 1a u.dósis",
+					"fromPath": [
+						"varicela de 1 año 1a u.dósis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "f.a. 1 año u.dósis",
+					"fromPath": [
+						"f.a. 1 año u.dósis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "neumo de (12 meses a 23 meses) ref.",
+					"fromPath": [
+						"neumo de (12 meses a 23 meses) ref."
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "neumo de (12-23 meses) 1ra dosis",
+					"fromPath": [
+						"neumo de (12-23 meses) 1ra dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "neumo de (12-23 meses) 2da dosis",
+					"fromPath": [
+						"neumo de (12-23 meses) 2da dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "neumo de (24- 35 meses) dosis unica",
+					"fromPath": [
+						"neumo de (24- 35 meses) dosis unica"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "ha 1 año u. dósis",
+					"fromPath": [
+						"ha 1 año u. dósis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "vop al año de la 3ra dosis 1er. ref.",
+					"fromPath": [
+						"vop al año de la 3ra dosis 1er. ref."
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "dpt al año de la 3ra dosis 1er. ref.",
+					"fromPath": [
+						"dpt al año de la 3ra dosis 1er. ref."
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "poblacion_5_anos_meta_programatica",
+					"fromPath": [
+						"población 5 años (meta programática)"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "vop 5 años 2do. ref.",
+					"fromPath": [
+						"vop 5 años 2do. ref."
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "dpt 5 años 2do. ref.",
+					"fromPath": [
+						"dpt 5 años 2do. ref."
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "srp (t.v.) 5 años ref.",
+					"fromPath": [
+						"srp (t.v.) 5 años ref."
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "flu gestantes a partir de la semana 14 unica",
+					"fromPath": [
+						"flu gestantes a partir de la semana 14 unica"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo",
+					"fromPath": [
+						"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "Region",
+					"fromPath": [
+						"region"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				}
+			],
+			"parentsValid": true,
+			"calculatedType": "",
+			"codeGenVersion": 2
+		},
+		"node-1746508151814": {
+			"nodeId": "node-1746508151814",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1746508098975",
+				"node-1746508125898"
+			],
+			"name": "UnionFinal",
+			"generatedNodeName": "UnionFinal_node1746508151814",
+			"classification": "Transform",
+			"type": "Union",
+			"parentsValid": true,
+			"calculatedType": "",
+			"sources": [
+				"node-1746508098975",
+				"node-1746508125898"
+			],
+			"unionType": "ALL",
+			"codeGenVersion": 2,
+			"outputSchemas": [
+				[
+					{
+						"key": "codigo",
+						"fullPath": [
+							"codigo"
+						],
+						"type": "float"
+					},
+					{
+						"key": "NombreDepartamento",
+						"fullPath": [
+							"NombreDepartamento"
+						],
+						"type": "string"
+					},
+					{
+						"key": "PoblacionMenor1",
+						"fullPath": [
+							"PoblacionMenor1"
+						],
+						"type": "string"
+					},
+					{
+						"key": "bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica",
+						"fullPath": [
+							"bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "hb recien nacido (hasta 29 días) d. unica",
+						"fullPath": [
+							"hb recien nacido (hasta 29 días) d. unica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis",
+						"fullPath": [
+							"antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "vop <de1 año + vip <1año 3as 3.dosis",
+						"fullPath": [
+							"vop <de1 año + vip <1año 3as 3.dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "PentaPrimerasDosis",
+						"fullPath": [
+							"PentaPrimerasDosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "PentaSegundasDosis",
+						"fullPath": [
+							"PentaSegundasDosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "penta menor de un año 3ras dosis",
+						"fullPath": [
+							"penta menor de un año 3ras dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "rotavirus de 2 a 3 meses y 21 dias 1ra dosis",
+						"fullPath": [
+							"rotavirus de 2 a 3 meses y 21 dias 1ra dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "rotavirus de 4 a 11 meses y 29 dias 2da dosis",
+						"fullPath": [
+							"rotavirus de 4 a 11 meses y 29 dias 2da dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "flu de 6 meses a 11 meses 1ra dosis",
+						"fullPath": [
+							"flu de 6 meses a 11 meses 1ra dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "flu de 6 meses a 11 meses 2da dosis",
+						"fullPath": [
+							"flu de 6 meses a 11 meses 2da dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo (2 a 11 meses 29 dias) 1ra dosis",
+						"fullPath": [
+							"neumo (2 a 11 meses 29 dias) 1ra dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo (2 a 11 meses 29 dias) 2da dosis",
+						"fullPath": [
+							"neumo (2 a 11 meses 29 dias) 2da dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "poblacion_1_ano_meta_programatica",
+						"fullPath": [
+							"poblacion_1_ano_meta_programatica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "srp (t.v.) de un año u.dósis",
+						"fullPath": [
+							"srp (t.v.) de un año u.dósis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "varicela de 1 año 1a u.dósis",
+						"fullPath": [
+							"varicela de 1 año 1a u.dósis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "f.a. 1 año u.dósis",
+						"fullPath": [
+							"f.a. 1 año u.dósis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo de (12 meses a 23 meses) ref.",
+						"fullPath": [
+							"neumo de (12 meses a 23 meses) ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo de (12-23 meses) 1ra dosis",
+						"fullPath": [
+							"neumo de (12-23 meses) 1ra dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo de (12-23 meses) 2da dosis",
+						"fullPath": [
+							"neumo de (12-23 meses) 2da dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo de (24- 35 meses) dosis unica",
+						"fullPath": [
+							"neumo de (24- 35 meses) dosis unica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "ha 1 año u. dósis",
+						"fullPath": [
+							"ha 1 año u. dósis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "vop al año de la 3ra dosis 1er. ref.",
+						"fullPath": [
+							"vop al año de la 3ra dosis 1er. ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "dpt al año de la 3ra dosis 1er. ref.",
+						"fullPath": [
+							"dpt al año de la 3ra dosis 1er. ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "poblacion_5_anos_meta_programatica",
+						"fullPath": [
+							"poblacion_5_anos_meta_programatica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "vop 5 años 2do. ref.",
+						"fullPath": [
+							"vop 5 años 2do. ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "dpt 5 años 2do. ref.",
+						"fullPath": [
+							"dpt 5 años 2do. ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "srp (t.v.) 5 años ref.",
+						"fullPath": [
+							"srp (t.v.) 5 años ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "flu gestantes a partir de la semana 14 unica",
+						"fullPath": [
+							"flu gestantes a partir de la semana 14 unica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo",
+						"fullPath": [
+							"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
+						],
+						"type": "string"
+					},
+					{
+						"key": "Region",
+						"fullPath": [
+							"Region"
+						],
+						"type": "string"
+					},
+					{
+						"key": "Anio",
+						"fullPath": [
+							"Anio"
+						],
+						"type": "int"
+					}
+				]
+			]
+		},
+		"node-1746507971926": {
+			"nodeId": "node-1746507971926",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1746507364437"
+			],
+			"name": "SQL Query",
+			"generatedNodeName": "SQLQuery_node1746507971926",
+			"classification": "Transform",
+			"type": "SqlCode",
+			"sqlAliases": [
+				{
+					"from": "node-1746507364437",
+					"alias": "myDataSource"
+				}
+			],
+			"outputSchemas": [
+				[
+					{
+						"key": "codigo",
+						"fullPath": [
+							"codigo"
+						],
+						"type": "float"
+					},
+					{
+						"key": "NombreDepartamento",
+						"fullPath": [
+							"NombreDepartamento"
+						],
+						"type": "string"
+					},
+					{
+						"key": "PoblacionMenor1",
+						"fullPath": [
+							"PoblacionMenor1"
+						],
+						"type": "string"
+					},
+					{
+						"key": "bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica",
+						"fullPath": [
+							"bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "hb recien nacido (hasta 29 días) d. unica",
+						"fullPath": [
+							"hb recien nacido (hasta 29 días) d. unica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis",
+						"fullPath": [
+							"antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "vop <de1 año + vip <1año 3as 3.dosis",
+						"fullPath": [
+							"vop <de1 año + vip <1año 3as 3.dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "PentaPrimerasDosis",
+						"fullPath": [
+							"PentaPrimerasDosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "PentaSegundasDosis",
+						"fullPath": [
+							"PentaSegundasDosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "penta menor de un año 3ras dosis",
+						"fullPath": [
+							"penta menor de un año 3ras dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "rotavirus de 2 a 3 meses y 21 dias 1ra dosis",
+						"fullPath": [
+							"rotavirus de 2 a 3 meses y 21 dias 1ra dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "rotavirus de 4 a 11 meses y 29 dias 2da dosis",
+						"fullPath": [
+							"rotavirus de 4 a 11 meses y 29 dias 2da dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "flu de 6 meses a 11 meses 1ra dosis",
+						"fullPath": [
+							"flu de 6 meses a 11 meses 1ra dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "flu de 6 meses a 11 meses 2da dosis",
+						"fullPath": [
+							"flu de 6 meses a 11 meses 2da dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo (2 a 11 meses 29 dias) 1ra dosis",
+						"fullPath": [
+							"neumo (2 a 11 meses 29 dias) 1ra dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo (2 a 11 meses 29 dias) 2da dosis",
+						"fullPath": [
+							"neumo (2 a 11 meses 29 dias) 2da dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "poblacion_1_ano_meta_programatica",
+						"fullPath": [
+							"poblacion_1_ano_meta_programatica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "srp (t.v.) de un año u.dósis",
+						"fullPath": [
+							"srp (t.v.) de un año u.dósis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "varicela de 1 año 1a u.dósis",
+						"fullPath": [
+							"varicela de 1 año 1a u.dósis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "f.a. 1 año u.dósis",
+						"fullPath": [
+							"f.a. 1 año u.dósis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo de (12 meses a 23 meses) ref.",
+						"fullPath": [
+							"neumo de (12 meses a 23 meses) ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo de (12-23 meses) 1ra dosis",
+						"fullPath": [
+							"neumo de (12-23 meses) 1ra dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo de (12-23 meses) 2da dosis",
+						"fullPath": [
+							"neumo de (12-23 meses) 2da dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "neumo de (24- 35 meses) dosis unica",
+						"fullPath": [
+							"neumo de (24- 35 meses) dosis unica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "ha 1 año u. dósis",
+						"fullPath": [
+							"ha 1 año u. dósis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "vop al año de la 3ra dosis 1er. ref.",
+						"fullPath": [
+							"vop al año de la 3ra dosis 1er. ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "dpt al año de la 3ra dosis 1er. ref.",
+						"fullPath": [
+							"dpt al año de la 3ra dosis 1er. ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "poblacion_5_anos_meta_programatica",
+						"fullPath": [
+							"poblacion_5_anos_meta_programatica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "vop 5 años 2do. ref.",
+						"fullPath": [
+							"vop 5 años 2do. ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "dpt 5 años 2do. ref.",
+						"fullPath": [
+							"dpt 5 años 2do. ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "srp (t.v.) 5 años ref.",
+						"fullPath": [
+							"srp (t.v.) 5 años ref."
+						],
+						"type": "string"
+					},
+					{
+						"key": "flu gestantes a partir de la semana 14 unica",
+						"fullPath": [
+							"flu gestantes a partir de la semana 14 unica"
+						],
+						"type": "string"
+					},
+					{
+						"key": "tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo",
+						"fullPath": [
+							"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
+						],
+						"type": "string"
+					},
+					{
+						"key": "Region",
+						"fullPath": [
+							"Region"
+						],
+						"type": "string"
+					},
+					{
+						"key": "Anio",
+						"fullPath": [
+							"Anio"
+						],
+						"type": "int"
+					}
+				]
+			],
+			"parentsValid": true,
+			"calculatedType": "",
+			"sqlQuery": "SELECT \r\n  *, \r\n  2018 AS Anio \r\nFROM myDataSource",
+			"codeGenVersion": 2
+		},
+		"node-1747376429558": {
+			"nodeId": "node-1747376429558",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1747379773526"
+			],
+			"name": "DimFecha",
+			"generatedNodeName": "DimFecha_node1747376429558",
+			"classification": "DataSink",
+			"type": "AmazonRedshift",
+			"streamingBatchInterval": 100,
+			"data": {
+				"accessType": "connection",
+				"sourceType": "table",
+				"connection": {
+					"value": "Redshift connection",
+					"label": "Redshift connection",
+					"description": "No description available. Version: 2"
+				},
+				"schema": {
+					"value": "public",
+					"label": "public",
+					"description": null
+				},
+				"catalogDatabase": null,
+				"catalogRedshiftTable": null,
+				"catalogRedshiftSchema": null,
+				"table": {
+					"value": "dimfecha",
+					"label": "dimfecha",
+					"description": null
+				},
+				"catalogTable": null,
+				"tempDir": "s3://aws-glue-assets-730335326856-us-east-1/temporary/",
+				"iamRole": null,
+				"sampleQuery": null,
+				"preAction": null,
+				"postAction": null,
+				"action": "append",
+				"tableSchema": [
+					{
+						"value": "Anio",
+						"label": "Anio",
+						"description": "INTEGER"
+					}
+				],
+				"selectedColumns": [],
+				"crawlerConnection": null,
+				"tablePrefix": null,
+				"upsert": false,
+				"mergeAction": "simple",
+				"mergeWhenMatched": "update",
+				"mergeWhenNotMatched": "insert",
+				"mergeClause": null,
+				"stagingTable": "public.dimfecha_temp_9jscx8",
+				"advancedOptions": []
+			},
+			"calculatedType": "",
+			"codeGenVersion": 2
+		},
+		"node-1747376810456": {
+			"nodeId": "node-1747376810456",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1746509712134"
+			],
+			"name": "DimDepartamento",
+			"generatedNodeName": "DimDepartamento_node1747376810456",
+			"classification": "DataSink",
+			"type": "AmazonRedshift",
+			"streamingBatchInterval": 100,
+			"data": {
+				"accessType": "connection",
+				"sourceType": "table",
+				"connection": {
+					"value": "Redshift connection",
+					"label": "Redshift connection",
+					"description": "No description available. Version: 2"
+				},
+				"schema": {
+					"value": "public",
+					"label": "public",
+					"description": null
+				},
+				"catalogDatabase": null,
+				"catalogRedshiftTable": null,
+				"catalogRedshiftSchema": null,
+				"table": {
+					"value": "dimdepartamento",
+					"label": "dimdepartamento",
+					"description": null
+				},
+				"catalogTable": null,
+				"tempDir": "s3://aws-glue-assets-730335326856-us-east-1/temporary/",
+				"iamRole": null,
+				"sampleQuery": null,
+				"preAction": null,
+				"postAction": null,
+				"action": "append",
+				"tableSchema": [
+					{
+						"value": "NombreDepartamento",
+						"label": "NombreDepartamento",
+						"description": "VARCHAR"
+					},
+					{
+						"value": "codigo",
+						"label": "codigo",
+						"description": "REAL"
+					},
+					{
+						"value": "Region",
+						"label": "Region",
+						"description": "VARCHAR"
+					}
+				],
+				"selectedColumns": [],
+				"crawlerConnection": null,
+				"tablePrefix": null,
+				"upsert": false,
+				"mergeAction": "simple",
+				"mergeWhenMatched": "update",
+				"mergeWhenNotMatched": "insert",
+				"mergeClause": null,
+				"stagingTable": "public.dimdepartamento_temp_7ohsry",
+				"advancedOptions": []
+			},
+			"calculatedType": "",
+			"codeGenVersion": 2
+		},
+		"node-1746503419802": {
+			"nodeId": "node-1746503419802",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [],
+			"name": "Fuente_Vacunacion_2019",
+			"generatedNodeName": "Fuente_Vacunacion_2019_node1746503419802",
+			"classification": "DataSource",
+			"type": "S3",
+			"isCatalog": false,
+			"format": "csv",
+			"paths": [
+				"s3://uniandes-bi-proycto-2-202510-source/CoberturasVacunas_2019v3.csv"
+			],
+			"compressionType": null,
+			"exclusions": [],
+			"groupFiles": null,
+			"groupSize": null,
+			"recurse": true,
+			"maxBand": null,
+			"maxFilesInBand": null,
+			"additionalOptions": {
+				"boundedSize": null,
+				"boundedFiles": null,
+				"enableSamplePath": false,
+				"samplePath": "s3://uniandes-bi-proycto-2-202510-source/CoberturasVacunas_2019v3.csv",
+				"boundedOption": null
+			},
+			"separator": ",",
+			"escaper": "",
+			"quoteChar": "\"",
+			"multiline": null,
+			"withHeader": true,
+			"writeHeader": null,
+			"skipFirst": null,
+			"optimizePerformance": false,
+			"outputSchemas": [
+				[
+					{
+						"key": "codigo",
+						"fullPath": [
+							"codigo"
 						],
 						"type": "string",
 						"glueStudioType": null,
 						"children": null
 					},
 					{
-						"key": "% 1a dosis",
+						"key": "departamentos",
 						"fullPath": [
-							"% 1a dosis"
+							"departamentos"
 						],
 						"type": "string",
 						"glueStudioType": null,
 						"children": null
 					},
 					{
-						"key": "vph 2a dosis",
+						"key": "población menor 1 año (meta programática)",
 						"fullPath": [
-							"vph 2a dosis"
+							"población menor 1 año (meta programática)"
 						],
 						"type": "string",
 						"glueStudioType": null,
 						"children": null
 					},
 					{
-						"key": "% 2da dosis",
+						"key": "bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica",
 						"fullPath": [
-							"% 2da dosis"
+							"bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "hb recien nacido (hasta 29 días) d. unica",
+						"fullPath": [
+							"hb recien nacido (hasta 29 días) d. unica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis",
+						"fullPath": [
+							"antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "vop <de1 año + vip <1año 3as 3.dosis",
+						"fullPath": [
+							"vop <de1 año + vip <1año 3as 3.dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "penta menor de un año 1ras. dosis",
+						"fullPath": [
+							"penta menor de un año 1ras. dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "penta menor de un año 2das. dosis",
+						"fullPath": [
+							"penta menor de un año 2das. dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "penta menor de un año 3ras dosis",
+						"fullPath": [
+							"penta menor de un año 3ras dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "rotavirus de 2 a 3 meses y 21 dias 1ra dosis",
+						"fullPath": [
+							"rotavirus de 2 a 3 meses y 21 dias 1ra dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "rotavirus de 4 a 11 meses y 29 dias 2da dosis",
+						"fullPath": [
+							"rotavirus de 4 a 11 meses y 29 dias 2da dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "flu de 6 meses a 11 meses 1ra dosis",
+						"fullPath": [
+							"flu de 6 meses a 11 meses 1ra dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "flu de 6 meses a 11 meses 2da dosis",
+						"fullPath": [
+							"flu de 6 meses a 11 meses 2da dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo (2 a 11 meses 29 dias) 1ra dosis",
+						"fullPath": [
+							"neumo (2 a 11 meses 29 dias) 1ra dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo (2 a 11 meses 29 dias) 2da dosis",
+						"fullPath": [
+							"neumo (2 a 11 meses 29 dias) 2da dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "población de 1 año (meta programática)",
+						"fullPath": [
+							"población de 1 año (meta programática)"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "srp (t.v.) de un año u.dósis",
+						"fullPath": [
+							"srp (t.v.) de un año u.dósis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "varicela de 1 año 1a u.dósis",
+						"fullPath": [
+							"varicela de 1 año 1a u.dósis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "f.a. 1 año u.dósis",
+						"fullPath": [
+							"f.a. 1 año u.dósis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo de (12 meses a 23 meses) ref.",
+						"fullPath": [
+							"neumo de (12 meses a 23 meses) ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo de (12-23 meses) 1ra dosis",
+						"fullPath": [
+							"neumo de (12-23 meses) 1ra dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo de (12-23 meses) 2da dosis",
+						"fullPath": [
+							"neumo de (12-23 meses) 2da dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo de (24- 35 meses) dosis unica",
+						"fullPath": [
+							"neumo de (24- 35 meses) dosis unica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "ha 1 año u. dósis",
+						"fullPath": [
+							"ha 1 año u. dósis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "vop al año de la 3ra dosis 1er. ref.",
+						"fullPath": [
+							"vop al año de la 3ra dosis 1er. ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "dpt al año de la 3ra dosis 1er. ref.",
+						"fullPath": [
+							"dpt al año de la 3ra dosis 1er. ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "población 5 años (meta programática)",
+						"fullPath": [
+							"población 5 años (meta programática)"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "vop 5 años 2do. ref.",
+						"fullPath": [
+							"vop 5 años 2do. ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "dpt 5 años 2do. ref.",
+						"fullPath": [
+							"dpt 5 años 2do. ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "srp (t.v.) 5 años ref.",
+						"fullPath": [
+							"srp (t.v.) 5 años ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "flu gestantes a partir de la semana 14 unica",
+						"fullPath": [
+							"flu gestantes a partir de la semana 14 unica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo",
+						"fullPath": [
+							"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
 						],
 						"type": "string",
 						"glueStudioType": null,
@@ -4154,7 +4570,7 @@
 			"dataPreview": false,
 			"previewAmount": 0,
 			"inputs": [
-				"node-1746508151814"
+				"node-1747369090699"
 			],
 			"name": "SQL_DimVacuna",
 			"generatedNodeName": "SQL_DimVacuna_node1746512182699",
@@ -4162,36 +4578,763 @@
 			"type": "SqlCode",
 			"sqlAliases": [
 				{
-					"from": "node-1746508151814",
+					"from": "node-1747369090699",
 					"alias": "myDataSource"
 				}
 			],
 			"outputSchemas": [
 				[
 					{
-						"key": "idVacuna",
+						"key": "id_vacuna",
 						"fullPath": [
-							"idVacuna"
+							"id_vacuna"
+						],
+						"type": "int"
+					},
+					{
+						"key": "codigo_vacuna",
+						"fullPath": [
+							"codigo_vacuna"
+						],
+						"type": "string"
+					},
+					{
+						"key": "nombre_vacuna",
+						"fullPath": [
+							"nombre_vacuna"
+						],
+						"type": "string"
+					},
+					{
+						"key": "tipo_vacuna",
+						"fullPath": [
+							"tipo_vacuna"
+						],
+						"type": "string"
+					},
+					{
+						"key": "grupo_edad",
+						"fullPath": [
+							"grupo_edad"
+						],
+						"type": "string"
+					},
+					{
+						"key": "tipo_dosis",
+						"fullPath": [
+							"tipo_dosis"
+						],
+						"type": "string"
+					},
+					{
+						"key": "numero_dosis",
+						"fullPath": [
+							"numero_dosis"
+						],
+						"type": "int"
+					},
+					{
+						"key": "descripcion_completa",
+						"fullPath": [
+							"descripcion_completa"
+						],
+						"type": "string"
+					}
+				]
+			],
+			"parentsValid": true,
+			"calculatedType": "",
+			"sqlQuery": "WITH vacunas_identificadas AS (\r\n  SELECT 1 as id_vacuna, 'BCG' as codigo_vacuna, 'BCG (Bacilo de Calmette-Guerin)' as nombre_vacuna, \r\n         'Bacteriana' as tipo_vacuna, 'Recien nacidos y menores de 1 ano' as grupo_edad, \r\n         'Dosis unica' as tipo_dosis, 1 as numero_dosis,\r\n         'bcg recien nacido mas menor un ano dosis unica' as descripcion_completa\r\n  \r\n  UNION ALL SELECT 2, 'HB', 'Hepatitis B', 'Viral', 'Recien nacidos', 'Dosis unica', 1,\r\n         'hb recien nacido dosis unica'\r\n  \r\n  UNION ALL SELECT 3, 'VIP', 'Antipolio Inactivada', 'Viral', 'Menores de 1 ano', 'Primera dosis', 1,\r\n         'antipolio inactivada vip parenteral primera dosis'\r\n  \r\n  UNION ALL SELECT 4, 'VOP_VIP_COMBO', 'Antipolio Oral + Inactivada', 'Viral', 'Menores de 1 ano', 'Tercera dosis', 3,\r\n         'vop mas vip tercera dosis'\r\n  \r\n  UNION ALL SELECT 5, 'PENTA_1', 'Pentavalente Primera Dosis', 'Combinada', 'Menores de 1 ano', 'Primera dosis', 1,\r\n         'penta menor de un ano primera dosis'\r\n  \r\n  UNION ALL SELECT 6, 'PENTA_2', 'Pentavalente Segunda Dosis', 'Combinada', 'Menores de 1 ano', 'Segunda dosis', 2,\r\n         'penta menor de un ano segunda dosis'\r\n  \r\n  UNION ALL SELECT 7, 'PENTA_3', 'Pentavalente Tercera Dosis', 'Combinada', 'Menores de 1 ano', 'Tercera dosis', 3,\r\n         'penta menor de un ano tercera dosis'\r\n  \r\n  UNION ALL SELECT 8, 'ROTAVIRUS_1', 'Rotavirus Primera Dosis', 'Viral', '2-3 meses', 'Primera dosis', 1,\r\n         'rotavirus de 2 a 3 meses primera dosis'\r\n  \r\n  UNION ALL SELECT 9, 'ROTAVIRUS_2', 'Rotavirus Segunda Dosis', 'Viral', '4-11 meses', 'Segunda dosis', 2,\r\n         'rotavirus de 4 a 11 meses segunda dosis'\r\n  \r\n  UNION ALL SELECT 10, 'FLU_1', 'Influenza Primera Dosis', 'Viral', '6-11 meses', 'Primera dosis', 1,\r\n         'flu de 6 meses a 11 meses primera dosis'\r\n  \r\n  UNION ALL SELECT 11, 'FLU_2', 'Influenza Segunda Dosis', 'Viral', '6-11 meses', 'Segunda dosis', 2,\r\n         'flu de 6 meses a 11 meses segunda dosis'\r\n  \r\n  UNION ALL SELECT 12, 'FLU_GESTANTES', 'Influenza Gestantes', 'Viral', 'Gestantes', 'Dosis unica', 1,\r\n         'flu gestantes a partir de la semana 14 unica'\r\n  \r\n  UNION ALL SELECT 13, 'NEUMO_1_2A11M', 'Neumococo Primera Dosis (2-11 meses)', 'Bacteriana', '2-11 meses', 'Primera dosis', 1,\r\n         'neumo 2 a 11 meses primera dosis'\r\n  \r\n  UNION ALL SELECT 14, 'NEUMO_2_2A11M', 'Neumococo Segunda Dosis (2-11 meses)', 'Bacteriana', '2-11 meses', 'Segunda dosis', 2,\r\n         'neumo 2 a 11 meses segunda dosis'\r\n  \r\n  UNION ALL SELECT 15, 'NEUMO_REF_12A23M', 'Neumococo Refuerzo (12-23 meses)', 'Bacteriana', '12-23 meses', 'Refuerzo', 0,\r\n         'neumo de 12 meses a 23 meses refuerzo'\r\n  \r\n  UNION ALL SELECT 16, 'NEUMO_1_12A23M', 'Neumococo Primera Dosis (12-23 meses)', 'Bacteriana', '12-23 meses', 'Primera dosis', 1,\r\n         'neumo de 12-23 meses primera dosis'\r\n  \r\n  UNION ALL SELECT 17, 'NEUMO_2_12A23M', 'Neumococo Segunda Dosis (12-23 meses)', 'Bacteriana', '12-23 meses', 'Segunda dosis', 2,\r\n         'neumo de 12-23 meses segunda dosis'\r\n  \r\n  UNION ALL SELECT 18, 'NEUMO_UNICA_24A35M', 'Neumococo Dosis Unica (24-35 meses)', 'Bacteriana', '24-35 meses', 'Dosis unica', 1,\r\n         'neumo de 24-35 meses dosis unica'\r\n  \r\n  UNION ALL SELECT 19, 'SRP_1_ANO', 'SRP (Sarampion, Rubeola, Paperas) 1 ano', 'Viral', '1 ano', 'Dosis unica', 1,\r\n         'srp de un ano dosis unica'\r\n  \r\n  UNION ALL SELECT 20, 'VARICELA', 'Varicela', 'Viral', '1 ano', 'Dosis unica', 1,\r\n         'varicela de 1 ano primera dosis unica'\r\n  \r\n  UNION ALL SELECT 21, 'FA', 'Fiebre Amarilla', 'Viral', '1 ano', 'Dosis unica', 1,\r\n         'fa 1 ano dosis unica'\r\n  \r\n  UNION ALL SELECT 22, 'HA', 'Hepatitis A', 'Viral', '1 ano', 'Dosis unica', 1,\r\n         'ha 1 ano dosis unica'\r\n  \r\n  UNION ALL SELECT 23, 'VOP_REF_1', 'Antipolio Oral Primer Refuerzo', 'Viral', '1 ano despues de 3ra dosis', 'Primer refuerzo', 0,\r\n         'vop al ano de la 3ra dosis primer refuerzo'\r\n  \r\n  UNION ALL SELECT 24, 'DPT_REF_1', 'DPT Primer Refuerzo', 'Bacteriana', '1 ano despues de 3ra dosis', 'Primer refuerzo', 0,\r\n         'dpt al ano de la 3ra dosis primer refuerzo'\r\n  \r\n  UNION ALL SELECT 25, 'VOP_REF_2', 'Antipolio Oral Segundo Refuerzo', 'Viral', '5 anos', 'Segundo refuerzo', 0,\r\n         'vop 5 anos segundo refuerzo'\r\n  \r\n  UNION ALL SELECT 26, 'DPT_REF_2', 'DPT Segundo Refuerzo', 'Bacteriana', '5 anos', 'Segundo refuerzo', 0,\r\n         'dpt 5 anos segundo refuerzo'\r\n  \r\n  UNION ALL SELECT 27, 'SRP_REF_5', 'SRP Refuerzo 5 anos', 'Viral', '5 anos', 'Refuerzo', 0,\r\n         'srp 5 anos refuerzo'\r\n  \r\n  UNION ALL SELECT 28, 'TDAP_GESTANTES', 'Tdap Gestantes', 'Bacteriana', 'Gestantes 10 anos y mas', 'Dosis unica', 1,\r\n         'tdap acelular gestantes de 10 anos y mas unica dosis'\r\n)\r\n\r\nSELECT \r\n    id_vacuna,\r\n    codigo_vacuna,\r\n    nombre_vacuna,\r\n    tipo_vacuna,\r\n    grupo_edad,\r\n    tipo_dosis,\r\n    numero_dosis,\r\n    descripcion_completa\r\nFROM vacunas_identificadas\r\nORDER BY id_vacuna;",
+			"codeGenVersion": 2
+		},
+		"node-1746506536033": {
+			"nodeId": "node-1746506536033",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1746503205934"
+			],
+			"name": "ApplyMapping_2016",
+			"generatedNodeName": "ApplyMapping_2016_node1746506536033",
+			"classification": "Transform",
+			"type": "ApplyMapping",
+			"mapping": [
+				{
+					"toKey": "codigo",
+					"fromPath": [
+						"codigo"
+					],
+					"toType": "float",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "NombreDepartamento",
+					"fromPath": [
+						"departamentos"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "PoblacionMenor1",
+					"fromPath": [
+						"población menor 1 año (meta programática)"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica",
+					"fromPath": [
+						"bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "hb recien nacido (hasta 29 días) d. unica",
+					"fromPath": [
+						"hb recien nacido (hasta 29 días) d. unica"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis",
+					"fromPath": [
+						"antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "vop <de1 año + vip <1año 3as 3.dosis",
+					"fromPath": [
+						"vop <de1 año + vip <1año 3as 3.dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "PentaPrimerasDosis",
+					"fromPath": [
+						"penta menor de un año 1ras. dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "PentaSegundasDosis",
+					"fromPath": [
+						"penta menor de un año 2das. dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "penta menor de un año 3ras dosis",
+					"fromPath": [
+						"penta menor de un año 3ras dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "rotavirus de 2 a 3 meses y 21 dias 1ra dosis",
+					"fromPath": [
+						"rotavirus de 2 a 3 meses y 21 dias 1ra dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "rotavirus de 4 a 11 meses y 29 dias 2da dosis",
+					"fromPath": [
+						"rotavirus de 4 a 11 meses y 29 dias 2da dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "flu de 6 meses a 11 meses 1ra dosis",
+					"fromPath": [
+						"flu de 6 meses a 11 meses 1ra dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "flu de 6 meses a 11 meses 2da dosis",
+					"fromPath": [
+						"flu de 6 meses a 11 meses 2da dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "neumo (2 a 11 meses 29 dias) 1ra dosis",
+					"fromPath": [
+						"neumo (2 a 11 meses 29 dias) 1ra dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "neumo (2 a 11 meses 29 dias) 2da dosis",
+					"fromPath": [
+						"neumo (2 a 11 meses 29 dias) 2da dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "poblacion_1_ano_meta_programatica",
+					"fromPath": [
+						"población de 1 año (meta programática)"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "srp (t.v.) de un año u.dósis",
+					"fromPath": [
+						"srp (t.v.) de un año u.dósis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "varicela de 1 año 1a u.dósis",
+					"fromPath": [
+						"varicela de 1 año 1a u.dósis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "f.a. 1 año u.dósis",
+					"fromPath": [
+						"f.a. 1 año u.dósis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "neumo de (12 meses a 23 meses) ref.",
+					"fromPath": [
+						"neumo de (12 meses a 23 meses) ref."
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "neumo de (12-23 meses) 1ra dosis",
+					"fromPath": [
+						"neumo de (12-23 meses) 1ra dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "neumo de (12-23 meses) 2da dosis",
+					"fromPath": [
+						"neumo de (12-23 meses) 2da dosis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "neumo de (24- 35 meses) dosis unica",
+					"fromPath": [
+						"neumo de (24- 35 meses) dosis unica"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "ha 1 año u. dósis",
+					"fromPath": [
+						"ha 1 año u. dósis"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "vop al año de la 3ra dosis 1er. ref.",
+					"fromPath": [
+						"vop al año de la 3ra dosis 1er. ref."
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "dpt al año de la 3ra dosis 1er. ref.",
+					"fromPath": [
+						"dpt al año de la 3ra dosis 1er. ref."
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "poblacion_5_anos_meta_programatica",
+					"fromPath": [
+						"población 5 años (meta programática)"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "vop 5 años 2do. ref.",
+					"fromPath": [
+						"vop 5 años 2do. ref."
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "dpt 5 años 2do. ref.",
+					"fromPath": [
+						"dpt 5 años 2do. ref."
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "srp (t.v.) 5 años ref.",
+					"fromPath": [
+						"srp (t.v.) 5 años ref."
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "flu gestantes a partir de la semana 14 unica",
+					"fromPath": [
+						"flu gestantes a partir de la semana 14 unica"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo",
+					"fromPath": [
+						"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "Region",
+					"fromPath": [
+						"region"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				}
+			],
+			"parentsValid": true,
+			"calculatedType": "",
+			"codeGenVersion": 2
+		},
+		"node-1746508004674": {
+			"nodeId": "node-1746508004674",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1746507209272"
+			],
+			"name": "SQL Query",
+			"generatedNodeName": "SQLQuery_node1746508004674",
+			"classification": "Transform",
+			"type": "SqlCode",
+			"sqlAliases": [
+				{
+					"from": "node-1746507209272",
+					"alias": "myDataSource"
+				}
+			],
+			"outputSchemas": [
+				[
+					{
+						"key": "codigo",
+						"fullPath": [
+							"codigo"
+						],
+						"type": "float",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "NombreDepartamento",
+						"fullPath": [
+							"NombreDepartamento"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "PoblacionMenor1",
+						"fullPath": [
+							"PoblacionMenor1"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica",
+						"fullPath": [
+							"bcg recien nacido (hasta 29 días) + menor un año (a partir de 30 dias hasta 11 meses 29 dias) dosis unica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "hb recien nacido (hasta 29 días) d. unica",
+						"fullPath": [
+							"hb recien nacido (hasta 29 días) d. unica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis",
+						"fullPath": [
+							"antipolio inactivada (vip) parenteral <  de 1 año 1ras. dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "vop <de1 año + vip <1año 3as 3.dosis",
+						"fullPath": [
+							"vop <de1 año + vip <1año 3as 3.dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "PentaPrimerasDosis",
+						"fullPath": [
+							"PentaPrimerasDosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "PentaSegundasDosis",
+						"fullPath": [
+							"PentaSegundasDosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "penta menor de un año 3ras dosis",
+						"fullPath": [
+							"penta menor de un año 3ras dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "rotavirus de 2 a 3 meses y 21 dias 1ra dosis",
+						"fullPath": [
+							"rotavirus de 2 a 3 meses y 21 dias 1ra dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "rotavirus de 4 a 11 meses y 29 dias 2da dosis",
+						"fullPath": [
+							"rotavirus de 4 a 11 meses y 29 dias 2da dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "flu de 6 meses a 11 meses 1ra dosis",
+						"fullPath": [
+							"flu de 6 meses a 11 meses 1ra dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "flu de 6 meses a 11 meses 2da dosis",
+						"fullPath": [
+							"flu de 6 meses a 11 meses 2da dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo (2 a 11 meses 29 dias) 1ra dosis",
+						"fullPath": [
+							"neumo (2 a 11 meses 29 dias) 1ra dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo (2 a 11 meses 29 dias) 2da dosis",
+						"fullPath": [
+							"neumo (2 a 11 meses 29 dias) 2da dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "poblacion_1_ano_meta_programatica",
+						"fullPath": [
+							"poblacion_1_ano_meta_programatica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "srp (t.v.) de un año u.dósis",
+						"fullPath": [
+							"srp (t.v.) de un año u.dósis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "varicela de 1 año 1a u.dósis",
+						"fullPath": [
+							"varicela de 1 año 1a u.dósis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "f.a. 1 año u.dósis",
+						"fullPath": [
+							"f.a. 1 año u.dósis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo de (12 meses a 23 meses) ref.",
+						"fullPath": [
+							"neumo de (12 meses a 23 meses) ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo de (12-23 meses) 1ra dosis",
+						"fullPath": [
+							"neumo de (12-23 meses) 1ra dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo de (12-23 meses) 2da dosis",
+						"fullPath": [
+							"neumo de (12-23 meses) 2da dosis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "neumo de (24- 35 meses) dosis unica",
+						"fullPath": [
+							"neumo de (24- 35 meses) dosis unica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "ha 1 año u. dósis",
+						"fullPath": [
+							"ha 1 año u. dósis"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "vop al año de la 3ra dosis 1er. ref.",
+						"fullPath": [
+							"vop al año de la 3ra dosis 1er. ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "dpt al año de la 3ra dosis 1er. ref.",
+						"fullPath": [
+							"dpt al año de la 3ra dosis 1er. ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "poblacion_5_anos_meta_programatica",
+						"fullPath": [
+							"poblacion_5_anos_meta_programatica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "vop 5 años 2do. ref.",
+						"fullPath": [
+							"vop 5 años 2do. ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "dpt 5 años 2do. ref.",
+						"fullPath": [
+							"dpt 5 años 2do. ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "srp (t.v.) 5 años ref.",
+						"fullPath": [
+							"srp (t.v.) 5 años ref."
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "flu gestantes a partir de la semana 14 unica",
+						"fullPath": [
+							"flu gestantes a partir de la semana 14 unica"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo",
+						"fullPath": [
+							"tdap acelular gestantes de 10 años y mas unica dosis en cada embarazo"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Region",
+						"fullPath": [
+							"Region"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Anio",
+						"fullPath": [
+							"Anio"
 						],
 						"type": "int",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "Nombre",
-						"fullPath": [
-							"Nombre"
-						],
-						"type": "string",
-						"glueStudioType": null,
-						"children": null
-					},
-					{
-						"key": "tipoBiologico",
-						"fullPath": [
-							"tipoBiologico"
-						],
-						"type": "string",
 						"glueStudioType": null,
 						"children": null
 					}
@@ -4199,10 +5342,80 @@
 			],
 			"parentsValid": true,
 			"calculatedType": "",
-			"sqlQuery": "SELECT \r\n  1 as idVacuna, 'Pentavalente' as Nombre, 'Combinada' as tipoBiologico\r\nUNION ALL\r\nSELECT \r\n  2 as idVacuna, 'BCG' as Nombre, 'Bacteriana' as tipoBiologico\r\nUNION ALL\r\nSELECT \r\n  3 as idVacuna, 'Hepatitis B' as Nombre, 'Viral' as tipoBiologico\r\nUNION ALL\r\nSELECT \r\n  4 as idVacuna, 'Rotavirus' as Nombre, 'Viral' as tipoBiologico\r\nUNION ALL\r\nSELECT \r\n  5 as idVacuna, 'Antipolio' as Nombre, 'Viral' as tipoBiologico",
+			"sqlQuery": "SELECT \r\n  *, \r\n  2019 AS Anio \r\nFROM myDataSource",
 			"codeGenVersion": 2
+		},
+		"node-1746509712134": {
+			"nodeId": "node-1746509712134",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1746508151814"
+			],
+			"name": "SelectFields_DimDepartamento",
+			"generatedNodeName": "SelectFields_DimDepartamento_node1746509712134",
+			"classification": "Transform",
+			"type": "SelectFields",
+			"paths": [
+				"CodigoDepartamento",
+				"NombreDepartamento",
+				"codigo",
+				"Region"
+			],
+			"parentsValid": true,
+			"calculatedType": "",
+			"codeGenVersion": 2,
+			"outputSchemas": [
+				[
+					{
+						"key": "NombreDepartamento",
+						"fullPath": [
+							"NombreDepartamento"
+						],
+						"type": "string"
+					},
+					{
+						"key": "codigo",
+						"fullPath": [
+							"codigo"
+						],
+						"type": "float"
+					},
+					{
+						"key": "Region",
+						"fullPath": [
+							"Region"
+						],
+						"type": "string"
+					}
+				]
+			]
+		},
+		"node-1747379773526": {
+			"classification": "Transform",
+			"type": "DropDuplicates",
+			"name": "Drop Duplicates",
+			"inputs": [
+				"node-1746509876227"
+			],
+			"columns": [],
+			"iconUrl": "https://a.b.cdn.console.awsstatic.com/a/v1/3WC4WUMPHI4LOVOYYXEI5UKN4PDX2WGTRPLWHBAEYPJCIOT77VCQ/static/media/Drop-duplicates.39c0b99b.svg",
+			"generatedNodeName": "DropDuplicates_node1747379773526",
+			"codeGenVersion": 2,
+			"outputSchemas": [
+				[
+					{
+						"key": "Anio",
+						"fullPath": [
+							"Anio"
+						],
+						"type": "int"
+					}
+				]
+			]
 		}
 	},
 	"hasBeenSaved": false,
-	"usageProfileName": null
+	"usageProfileName": null,
+	"redshift-s3-select": "s3://aws-glue-assets-730335326856-us-east-1/temporary/"
 }
